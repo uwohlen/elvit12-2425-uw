@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="no"> <!-- Språket som vises på nettsiden, for søk, og opplesningsprogrammer -->
+	<head>
+		<title>Navn på fanen</title>
+        <meta charset="utf-8"> <!-- slik at æøå vises riktig på siden -->
+		<link rel="icon" type="image/png" href="./media/katt2.png">
+		<style>
+			body {
+				background-color: lemonchiffon;
+			}
+			.spillCL {
+				background-color: lightgrey;
+			}
+			.spillCL h1 {
+				background-color: #4488FF;
+				color: hsla(80, 100%, 50%,0.6);
+			}
+			.ferdigCL {
+				display: none;
+			}
+			.ferdigCL h1 {
+				background-color: #FF0000;
+				color: hsl(80, 100%, 50%);
+			}
+			#knappID {
+				color: rgb(255,0,0);
+			}
+			button {
+				/* Dette er en styling av knapper jeg alltid har med */
+				cursor: pointer;
+			}
+			img {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="spillCL">
+			<h1>Overskrift på siden</h1>
+
+			<button id="knappID">Trykk her</button>
+
+			<p>Resultat: <span id="antallID"></span></p>
+
+			<!-- Bildet vil ikke vises til å begynne med 
+			     alt-attributten skal alltid være med 
+				 (vises ved feil, og leses av opplesningsprogrammer for blinde/svaksynte)
+			-->
+			<img src="./media/katt2.png" alt="Katt slapper av på Hydra" title="Katt slapper av på Hydra">
+		</div>
+		<div class="ferdigCL">
+			<h1>FERDIG!</h1>
+		</div>
+		<script>
+			let knappEl = document.getElementById("knappID");
+			let antallEl = document.querySelector("#antallID");
+			let bildeEl = document.querySelector("img");
+			let spillEl = document.querySelector(".spillCL");
+			let ferdigEl = document.querySelector(".ferdigCL")
+			let antall = 0;
+
+			knappEl.addEventListener("click",knappfunk);
+
+			/*
+				Funksjonen har tre stilarter
+				For klikk nr 1-9 så settes en 0 foran (01, 02 osv)
+				For klikk nr 10-19 så blir bakgrunnen blå, teksten hvit
+				For klikk nr 20 så blir bakgrunnen grønn, klikkbart bilde vises
+			*/
+			function knappfunk() {
+				antall ++
+				if (antall < 10) {
+					antallEl.innerText = "0" + antall; //Dette går ikke i Python: "0" + String(antall) er bedre
+				}
+				else if (antall < 20) {
+					antallEl.style.backgroundColor = "blue";
+					antallEl.style.color = "white";
+					antallEl.innerText = antall;
+				}
+				else {
+					antallEl.style.backgroundColor = "darkgreen";
+					antallEl.innerText = antall;
+					bildeEl.style.display = "inline-block";
+					knappEl.removeEventListener("click",knappfunk);
+					knappEl.disabled = "disabled";
+					knappEl.style.cursor = "not-allowed";
+					bildeEl.addEventListener("click",ferdigfunk);
+					bildeEl.style.cursor = "pointer";
+				}
+			}
+
+			function ferdigfunk() {
+				spillEl.style.display = "none";
+				ferdigEl.style.display = "block";
+				ferdigEl.innerHTML += "<a href='side2.html'>Gå til neste fil</a>"
+			}
+		</script>
+	</body>
+</html>
