@@ -1,0 +1,101 @@
+ <!DOCTYPE html>
+ <html>
+    <head>
+        <title>Unnis Django</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {% load static %}
+        <link rel="stylesheet" href="{% static '/css/style.css' %}" />
+    </head>
+    <body>
+        <div class="container">
+            <h1>Whaat?! {% now "l d-M-Y H:i:s" %}</h1>
+            <h2>En variabel: {{testvar}}</h2>
+            <h3>Tallvariabel: {{talltest|add:10}} resultatet av variabel 10 |add:10</h3>
+
+            {% with navn="Julenissen" %}
+                <p>Dette er en variabel i testpage.html: {{navn}}</p>
+                
+                {% include "til-inkludering.html" with person=navn %}
+            {% endwith %}
+
+            {% include "til-inkludering.html" with person="Unni" %}
+
+            <h1>Database</h1>
+            <hr>
+            {% for x in meldinger|dictsort:"name" %}
+                <h2 {% if forloop.first %}
+                    style="background-color: lightblue;"
+                    {% endif %}
+                >{{forloop.counter}}. Navn:<a href="detaljer/{{x.id}}"> {{ x.name }}</a></h2>
+                <p>Epost: {{ x.email }}</p>
+                <p>Tema: {{ x.subject }}</p>
+                <p>Melding: {{ x.message }}</p>
+                <hr>
+            {% endfor %}
+
+            
+            <p>Sjekker "in" og if-elif-else</p>
+            {% if 1 in liste %}
+                <p>Bom!</p>
+            {% elif 5 in liste %}
+                <p>Treff!</p>
+            {% else %}
+                <p>Alle andre tilfeller</p>
+            {% endif %}
+
+            <p>divisible by</p>
+            <ul>
+                {% for x in liste %}
+                    {% if x|divisibleby:2 %}
+                        <li>{{ x }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+
+            <p>cycle </p>
+            <ul>
+                {% for x in liste %}
+                    <li style="background-color:{% cycle 'lightblue' 'lemonchiffon' %};">
+                        {{x}} er et {% cycle 'oddetall' 'partall' %}
+                    </li>
+                {% endfor %}
+            </ul>
+
+
+            <p>slice og unordered_list</p>
+            <ul>
+            {{ liste|slice:"1:3"|unordered_list}}
+            </ul>
+
+            <p>Listen har lengde: {{liste|length}}</p>
+
+            <p>tilfeldig verdi: {{liste|random}}</p>
+
+            
+            {% for x in liste %}
+                <pre>Nr. {{x|rjust:2}}</pre>
+            {% endfor %}
+        
+            {% for x in "banana" %}
+                <p>{{x}}</p>
+            {% endfor %}
+
+            {# ordbok.x virker ikke #}
+            {% comment %}
+                {% for x in ordbok %}
+                    <p>{{forloop.counter}} {{ordbok.x}}</p>
+                {% endfor %}
+            {% endcomment %}
+            <p>{{ordbok.verdi1}}</p>
+            <p>{{ordbok.verdi2}}</p>
+            <p>{{ordbok.verdi3}}</p>
+
+
+            {% block sett_inn %}
+            {% endblock %}
+
+            <p>Etter blokk</p>
+
+        </div>
+    </body>
+ </html>

@@ -1,0 +1,36 @@
+{% extends 'mal.html' %}
+
+{% block fanetittel %}
+    Admin Database
+{% endblock %}
+
+
+{% block innhold %}
+    {% include "meny.html" with side="Adminside" %}
+    <div class="boksfargerCL">
+        <h1>Administrer databasen</h1>
+    </div>
+    <div class="boksfargerCL">
+        <table>
+            <thead>
+                <tr><th>ID</th><th>Navn</th><th>Poeng</th><th>Slett</th><th>Oppdater</th></tr>
+            </thead>
+            <tbody>
+                {% for x in resultatliste|dictsortreversed:"poeng" %}
+                    <tr>
+                        <form method="post" action="slettlinje">
+                            {% csrf_token %}
+                            <input type="hidden" value="{{x.id}}" name="slettID" />
+                            <td>{{x.id}}</td>
+                            <td>{{x.navn}}</td>
+                            <td>{{x.poeng}}</td>
+                            <td><input type="submit" value="Slett" name="slettKnapp" class="hand"/></td>
+                        </form>
+                        <td><a class="oppdaterCL" href="oppdater/{{x.id}}">Oppdater</a></td>
+                    </tr>
+                   
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

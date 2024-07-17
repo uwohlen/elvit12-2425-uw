@@ -1,0 +1,79 @@
+{% extends "mal.html" %}
+
+{% block fanetittel %}
+    IT1 Quiz
+{% endblock %}
+
+{% block innhold %}
+    {% include "meny.html" with side="Quiz" %}
+    <div class="boksfargerCL">
+        <h1>Quiz</h1>
+        <h2>Tema: Datamaskiner</h2>
+    </div>
+    {% for x in spmliste %}
+        <div class="boksfargerCL">
+            <h3>{{x.spm}}</h3>
+            {% with spmnr=forloop.counter %}
+                {% for y in x.alternativer %}
+                    <label class="hand">
+                        <input type="radio" name="spm{{spmnr}}" value=
+                            {% if x.fasit == forloop.counter %}
+                                "Riktig"
+                            {% else %}
+                                "Feil"
+                            {% endif %} 
+                        /> {{y}}
+                    </label>
+                {% endfor %}
+            {% endwith %}
+        </div>
+    {% endfor %}
+    <div class="boksfargerCL">
+        <h4 class="sjekkCL hand" id="sjekkID">Sjekk svar</h4>
+    </div>
+    <div class="boksfargerCL" id="resultatID">
+        <h3>Resultat: <span id="poengID"></span> poeng</h3>
+        <h4>Vil du konkurrere med andre?</h4>
+        <p>Hvis du samtykker til at vi lagrer navn og poeng i en database og viser fram på nettsiden med Resultater, skriv inn navnet ditt under og klikk på Enter-tasten eller Lagre-knappen.</p>
+        <form id="formID" method="post" action="lagrepoeng">
+            {% csrf_token %}
+            <input id="hiddenID" type="hidden" name="poeng">
+            <input id="navnID" type="text" name="navn" maxlength="100">
+            <input class="hand" type="submit" name="submitKnapp" value="Lagre">
+        </form>
+    </div>
+    <script>
+        const sjekkEl = document.getElementById("sjekkID");
+        const resultatEl = document.getElementById("resultatID");
+        const poengEl = document.getElementById("poengID");
+        const hiddenEl = document.getElementById("hiddenID");
+        const navnEl = document.getElementById("navnID");
+
+        let poeng = 0;
+
+        sjekkEl.addEventListener("click",sjekkfunk);
+        
+        function sjekkfunk(event) {
+            let svar = document.getElementsByTagName("input");
+            sjekkEl.parentElement.style.display = "none";
+            resultatEl.style.display = "block";
+            //console.log(svar);
+            for (let i = 0; i < svar.length; i++) {
+                if (svar[i].value == "Riktig") {
+                    svar[i].parentElement.style.backgroundColor = "lightgreen";
+                    if (svar[i].checked) {
+                        poeng ++;
+                    }
+                }
+                else if (svar[i].checked) {
+                    svar[i].parentElement.style.backgroundColor = "lightred";
+                    svar[i].parentElement.style.textDecorationLine = "line-through";
+                }
+            }
+            //console.log(poeng);
+            poengEl.innerText = poeng;
+            hiddenEl.value = poeng;
+            navnEl.focus();
+        }
+    </script>
+{% endblock %}

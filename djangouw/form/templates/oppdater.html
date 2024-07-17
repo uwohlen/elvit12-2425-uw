@@ -1,0 +1,23 @@
+{% extends "mal.html" %}
+
+{% block fanetittel %}
+    Oppdater IT1 Quiz
+{% endblock %}
+
+
+{% block innhold %}
+    {% include 'meny.html' %}
+    <div class="boksfargerCL">
+        <h1>Oppdater informasjonen</h1>
+    <div>
+
+    <div class="boksfargerCL">
+        <form id="formID" method="post" action="/lagreoppdatering">
+            {% csrf_token %}
+            <input type="hidden" value="{{oppdaterlinje.id}}" name="oppdaterID">
+            <label>Navn: <input type="text" value="{{oppdaterlinje.navn}}" name="navn"></label>
+            <label>Poeng: <input type="number" value="{{oppdaterlinje.poeng}}" name="poeng"></label>
+            <input class="hand" type="submit" value="Lagre endringer" name="oppdaterKnapp">
+        </form>
+    </div>
+{% endblock %}

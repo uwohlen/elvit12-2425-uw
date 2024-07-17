@@ -1,0 +1,18 @@
+{% extends "mal.html" %}
+
+
+{% block fanetittel %}
+    IT1 Fullstack
+{% endblock %}
+
+
+
+{% block innhold %}
+    {% include "meny.html" with side="Hjem" %}
+    <div class="boksfargerCL">
+        <h1>IT1 Fullstack</h1>
+        <h2>Blokk A 2024</h2>
+        <p>Dette nettstedet er laget ved hjelp av et Django-eksempel på w3schools.com.</p>
+        <p>Resulatatene fra quizen blir lagret i en database og vist fram i poenglisten.</p>
+    </div>
+{% endblock %}

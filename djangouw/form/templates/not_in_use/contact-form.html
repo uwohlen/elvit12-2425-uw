@@ -1,0 +1,53 @@
+{% extends "base.html" %} {% block title %}
+<title>Contact form</title>
+{% endblock %} {% block content %}
+<div class="container">
+  <h2 class="text-center">
+    {% load static %}
+    <img src="{% static 'envelope.svg' %}" alt="envelope icon"/>
+    New Message
+  </h2>
+  {% comment %} <form id="message-form" method="post" action="addmessage"> {% endcomment %}
+  <form id="message-form" method="post" action="addmessage">
+    {% csrf_token %}
+    <label for="name">
+      <span class="bold">Name</span>
+      <input type="text" id="name" name="name" placeholder="your name.." />
+    </label>    
+
+    <label for="email">
+      <span class="bold">Email</span>
+      <input type="email" id="email" name="email" placeholder="your email.." />
+    </label>
+
+    <label for="subject">
+      <span class="bold">Subject</span>
+      <input type="text" id="subject" name="subject" placeholder="provide a subject.." />
+    </label>
+
+    <label for="message">
+      <span class="bold">Message</span>
+      <textarea id="message" name="message" placeholder="Write something.." style="min-height: 250px"></textarea>
+    </label>
+
+
+    <button class="button" id="submitbutton" type="submit">Send</button>
+  </form>
+  <div id="errors"></div>
+</div> 
+<script>
+  document.getElementById('submitbutton').addEventListener('click', e => {
+    e.preventDefault();
+    const getNotValidEmail = email => `<p class='error'>'${email}' is not a valid email</p>`;
+    const getInputRequired = name => `<p class='error'>'${name}' input is required</p>`;
+    const errors = document.getElementById('errors');
+    const inputs = ['name', 'email', 'subject', 'message'].map(id => document.getElementById(id));
+    errors.innerHTML = '';
+    for (const input of inputs) if (!input.value.length) errors.innerHTML += getInputRequired(input.id);
+    const email = document.getElementById('email').value;
+    const rgx = /.+@[0-9a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+    if (email.length && !email.match(rgx)) errors.innerHTML += getNotValidEmail(email);
+    if(!errors.innerHTML.length) document.getElementById('message-form').submit();
+  });
+</script>
+{% endblock %}

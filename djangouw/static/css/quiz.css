@@ -1,0 +1,100 @@
+body, html {
+    margin: 0;
+    height: 100%;
+    background-color: bisque;
+    color: darkred;
+    font-family: sans-serif;
+    user-select: none;
+}
+
+.innholdCL {
+    margin: 20px auto;
+    width: 80%;
+    
+}
+
+.menyCL {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: burlywood;
+    border: 1px solid darkred;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.menyCL > a {
+    border: 1px solid darkred;
+    color: darkred;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 5px;
+    background-color: lemonchiffon;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.sideCL {
+    font-style: italic;
+    font-weight: bold;
+}
+
+.boksfargerCL {
+    padding: 10px;
+    margin: 10px auto;
+    background-color: burlywood;
+    border: 1px solid darkred;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+label {
+    display: block;
+    border: 1px solid darkred;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 5px;
+    background-color: lemonchiffon;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.sjekkCL {
+    display: block;
+    width: 100px;
+    border: 1px solid darkred;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 5px;
+    background-color: lemonchiffon;
+    color: darkblue;
+    text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);   
+}
+
+.hand {
+    cursor: pointer;
+}
+
+#resultatID {
+    display: none;
+}
+
+table, th, td {
+    border-radius: 0;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    border-collapse: collapse;
+    padding: 5px;
+}
+
+.oppdaterCL {
+    display: inline-block;
+    border: 1px solid darkred;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: lemonchiffon;
+    color: darkblue;
+    text-decoration: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);   
+}

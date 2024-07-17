@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% block title %}
+    <title>Contact App</title>
+    {% endblock %}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/css/style.css' %}" />
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div>{% block content %}{% endblock %}</div>
+      <footer class="footer">
+        <a
+        href="https://www.w3schools.com/spaces"
+        title="This website was made with W3Schools Spaces. Make your own free website today!"
+        target="_blank"
+        >
+        <img
+        src="https://spaces.w3schools.com/logo_4x.png"
+        alt="This website was made with W3Schools Spaces. Make your own free website today!"
+        width="50"
+        height="50"
+        />
+      </a>
+    </footer>
+  </div>
+  </body>
+</html>

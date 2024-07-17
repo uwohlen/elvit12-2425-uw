@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% block title %}
+<title>Message Sent Successfully</title>
+{% endblock %} {% block content %}
+
+<div class="container message">
+  {% if isSuccessfull %}
+  <div class="message-container text-center">
+    <div class="image">
+      {% load static %}
+      <img class="send-icon" src="{% static 'send.svg' %}" alt="send icon"/>
+    </div>
+    <div class="text">
+      <h2 class="bold margin-0">Thank you!</h2>
+      <p class="margin-0">Your message was sent</p>
+    </div>
+    <button onclick="backToMessage()" class="send-button" id="close-button">Close</button>
+  </div>
+
+  {%else%}
+  Failed to send your message.
+  {% endif %}
+</div>
+<script>
+  const backToMessage = () => {
+    window.location.href = '/';
+  }
+</script>
+
+{% endblock %}
