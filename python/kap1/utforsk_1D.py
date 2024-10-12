@@ -40,6 +40,13 @@ for i in range(len(highscores)):
 antall = [0]*20
 print(antall)
 
+"""
+import random as rd
+tilfeldige_tall = [rd.randint(1,100)]*20
+print(tilfeldige_tall)
+# virker ikke, det blir 20 like tall. Trekker et tilfeldig tall bare EN gang.
+"""
+
 
 import random as rd
 
