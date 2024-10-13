@@ -3,21 +3,29 @@
 tall = [1,2,3]
 bokstaver = ["a","b","c"]
 
-# når ting skal skje basert på posisjon
+# når ting skal skje basert på posisjon (eller verdi)
+# og/eller vi ønsker å gjøre endringer i original-lista
 for i in range(len(tall)):
   if (i == 0):
+    tall[i] = tall[i] * 10
     print(tall[i],"første")
-  elif (i == len(tall)-1):
-    print(tall[i],"siste")
+  elif (tall[i] == 3):
+    print(tall[i],"her er 3'ern")
   else:
     print(tall[i])
 
+print(tall)
+
 # når ting skal skje basert på verdi
+# og vi har ikke behov for å gjøre endringer i original-lista
 for bokstav in bokstaver:
   if bokstav == "b":
     print(bokstav,"midten")
   else:
+    bokstav = bokstav + "q"
     print(bokstav)
+
+print(bokstaver)
 
 highscores = [
   ["a",10],
@@ -31,6 +39,10 @@ for i in range(len(highscores)):
   print()
 
 
+for personer in highscores:
+  for verdier in personer:
+    print(verdier, end=" ")
+  print()
 
 
 
@@ -53,12 +65,15 @@ import random as rd
 liste = []
 
 for i in range(10):
-  liste.append(rd.randint(1,100))
+  liste.append(rd.randint(1,101))
 print(liste)
+
+liste = [rd.randint(1,101) for x in range(10)]
+print(liste)
+
 
 partall = list(range(100,201,2))
 print(partall)
-
 
 
 x_verdier = list(range(1,11))
@@ -98,3 +113,13 @@ navn2.remove("Unni")
 
 print("Innhold liste navn:",navn)
 print("Innhold liste navn2:",navn2)
+
+def lengde_funk(e):
+  return len(e)
+
+navn.sort(key=lengde_funk,reverse=True)
+print(navn)
+
+
+
+
