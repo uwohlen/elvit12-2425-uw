@@ -68,8 +68,8 @@ for i in range(10):
   liste.append(rd.randint(1,101))
 print(liste)
 
-liste = [rd.randint(1,101) for x in range(10)]
-print(liste)
+tilfeldige_tall = [rd.randint(1,101) for x in range(10)]
+print(tilfeldige_tall)
 
 
 partall = list(range(100,201,2))
@@ -121,5 +121,52 @@ navn.sort(key=lengde_funk,reverse=True)
 print(navn)
 
 
+tall_liste = list(range(1,11))
+print(tall_liste)
+dobbel_liste = []
+for x in tall_liste:
+  dobbel_liste.append(2*x)
+print(dobbel_liste)
+
+import numpy as np
+tall_array = np.array(range(1,11))
+print(tall_array)
+dobbel_array = tall_array*2
+print(dobbel_array)
 
 
+noen = tall_liste[3:7]
+print(noen)
+
+partall = tall_liste[3::2]
+print(partall)
+oddetall = tall_liste[4::2]
+print(oddetall)
+tregangen = tall_liste[2::3]
+print(tregangen)
+
+print(sorted(tilfeldige_tall))
+print(tilfeldige_tall)
+sortert_tall = sorted(tilfeldige_tall)
+print(sortert_tall)
+print(tilfeldige_tall)
+
+
+blanding = ["hei","2","To","å","104","Æ","e","Trønder","æ"]
+blanding.sort()
+print(blanding)
+
+tekst = "hei2Toå104ÆeTrønderæ"
+print(sorted(tekst))
+
+
+storst = tilfeldige_tall[0]
+plass = 0
+
+for i in range(1,len(tilfeldige_tall)):
+  if tilfeldige_tall[i] > storst:
+    storst = tilfeldige_tall[i]
+    plass = i
+    print("bytta til:",storst)
+
+print("Indeks",plass,"Verdi",storst)

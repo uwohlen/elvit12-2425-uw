@@ -22,3 +22,21 @@ bytt(tall,200,0)
 
 print(tall)
 
+
+def gange_liste(liste,verdi):
+  """
+  Utfører et gangestykke på hvert element i en liste-variabel
+  Faktoren i gangestykkene angis med verdi
+  """
+  dobbel = []
+  for x in liste:
+    dobbel.append(verdi*x)
+  return dobbel
+
+
+tall_liste = list(range(1,11))
+print(tall_liste)
+dobbel_liste = gange_liste(tall_liste,2)
+print(dobbel_liste)
+halv_liste = gange_liste(tall_liste,1/2)
+print(halv_liste)
