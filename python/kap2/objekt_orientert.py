@@ -1,11 +1,29 @@
+# Klasser har navn som starter med stor forbokstav
+# Det betyr at variabler og funksjoner skal IKKE starte med stor forbokstav
+# Nye ord: parametrene eller variablene kalles nå egenskaper... self.egenskap
+#          funksjonene kalles nå metoder... self.metode() 
 class Dyr:
-  def __init__(self,navn,rase,farge):
+  def __init__(self,navn,rase,farge,hale="Lang"): # parametre med defaultverdi skrives sist
     self.navn = navn
     self.rase = rase
     self.farge = farge
+    self.hale = hale
+    self.alder = 0       # kan ha egenskaper som ikke angis som parameter
 
-  def dyr_info(self):
+  def dyr_info(self):    # metoder har alltid parameteren self
     print(self.navn,"er en",self.farge.lower(),self.rase.lower())
+
+  def aldring(self,antall):   # metoder kan ha flere parametre
+    self.alder += antall
+    print(self.navn,"er nå",self.alder,"år")
+
+katt1 = Dyr("Pus","Tibetansk nakenkatt","Lysebrun","Kort")
+print(katt1.navn)     # refererer til en egenskap
+katt1.dyr_info()      # refererer til en metode 
+katt1.aldring(4)      # legg merke til at metoden aldring bare har ett argument,
+                      # selv om den er definert med to. Vi oppgir ikke verdi for self.
+                      
+
 
 mine_dyr = [
   Dyr("Silkesvarten","Norsk skogkatt","Svart"),
@@ -13,5 +31,8 @@ mine_dyr = [
   Dyr("Kaisa","Labrador retriever","Svart")
 ]
 
-mine_dyr[1].dyr_info()
+for dyr in mine_dyr:
+  dyr.dyr_info()
+  dyr.aldring(3)
 
+mine_dyr[2].aldring(5)
