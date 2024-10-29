@@ -17,9 +17,16 @@ class Dyr:
     self.alder += antall
     print(self.navn,"er nå",self.alder,"år")
 
+# Et OBJEKT er en variabel som bygger på en klasse:
+
 katt1 = Dyr("Pus","Tibetansk nakenkatt","Lysebrun","Kort")
+
 print(katt1.navn)     # refererer til en egenskap
+print(katt1.alder)
+print(type(katt1))
+
 katt1.dyr_info()      # refererer til en metode 
+
 katt1.aldring(4)      # legg merke til at metoden aldring bare har ett argument,
                       # selv om den er definert med to. Vi oppgir ikke verdi for self.
                       

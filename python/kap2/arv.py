@@ -22,7 +22,7 @@ class Katt(Dyr):   # Legg merke til parentes med navnet på klassen som det arve
 
   def antall_liv(self):
     self.liv += 1
-    if self.liv > 9:
+    if self.liv >= 9:
       print(self.navn,"har nå brukt alle sine liv :(")
     else:
       print(self.navn,"har nå brukt",self.liv,"liv.")
@@ -46,6 +46,7 @@ mine_dyr = [
 for dyr in mine_dyr:
   dyr.dyr_info()
   dyr.snakk()
+  print(type(dyr))
 
 for i in range(10):
   mine_dyr[0].antall_liv()
