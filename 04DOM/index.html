@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+  <head>
+    <title>DOM</title>
+    <meta charset="utf-8">
+    <style>
+      body { 
+        background-color: #f5f5f5;
+        font-family: Georgia, serif;
+      }
+      .hoved {
+        width: 60%;                 
+        margin: 100px auto;         
+        padding: 40px;              
+        background-color: white;   
+        border: 1px solid #cccccc;
+      }
+      h1, h2 {
+        font-family: Arial, sans-serif;
+      }
+      .blaa { 
+        padding: 20px;
+        background-color: #01739F; 
+      }
+      .rod {
+        padding: 20px;
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hoved">
+      <h1>Mer tekst</h1>
+      <p>Nytt avsnitt</p>
+      <h1 class="blaa stor luft">Velkommen til siden min</h1>
+      <p>På denne siden kan du lære mer om meg.</p>
+      <p class="blaa">Min favorittfarge er blå.</p>
+    </div>
+    <script>
+      let hovedEl = document.querySelector(".blaa");
+      hovedEl.className = "rod";
+    </script>
+  </body>
+</html>
