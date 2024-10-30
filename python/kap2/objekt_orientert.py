@@ -24,7 +24,7 @@ katt1 = Dyr("Pus","Tibetansk nakenkatt","Lysebrun","Kort")
 
 print(katt1.navn)     # refererer til en egenskap
 print(katt1.alder)
-print(type(katt1))
+print(type(katt1))    # __main__ betyr at klassen Dyr ligger i samme program
 
 katt1.dyr_info()      # refererer til en metode 
 
