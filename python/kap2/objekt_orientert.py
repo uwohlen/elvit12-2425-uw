@@ -1,6 +1,6 @@
 # Klasser har navn som starter med stor forbokstav
 # Det betyr at variabler og funksjoner skal IKKE starte med stor forbokstav
-# Nye ord: parametrene eller variablene kalles nå egenskaper... self.egenskap
+# Nye ord: parametrene eller variablene kalles nå egenskaper... self.egenskap (eller attributter)
 #          funksjonene kalles nå metoder... self.metode() 
 class Dyr:
   def __init__(self,navn,rase,farge,hale="Lang"): # parametre med defaultverdi skrives sist
@@ -17,7 +17,8 @@ class Dyr:
     self.alder += antall
     print(self.navn,"er nå",self.alder,"år")
 
-# Et OBJEKT er en variabel som bygger på en klasse:
+# Et OBJEKT er en variabel som bygger på en klasse, det som self viser til:
+# Lages ved å kalle opp klassen med tilhørende argumenter for alle parametrene unntatt self
 
 katt1 = Dyr("Pus","Tibetansk nakenkatt","Lysebrun","Kort")
 
