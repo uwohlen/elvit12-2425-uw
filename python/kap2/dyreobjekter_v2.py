@@ -22,12 +22,13 @@ for dyr in mine_dyr.values():
 
 mine_dyr["Kaisa"].aldring(5)
 
-
 for i in range(6):
   mine_dyr["Silkesvarten"].antall_liv()
 
 print("*******************************")
 print()
+
+
 mine_dyr["Silkesvarten"].avkom("Mini")
 print()
 mine_dyr["Silkesvarten"].avkom("Midi")
@@ -36,7 +37,11 @@ mine_dyr["Silkesvarten"].avkom("Maxi")
 print()
 print(mine_dyr["Silkesvarten"].barn)
 
+
+# man kan legge objekter inn i objekter
 mine_dyr["Mini"].sett_mor(mine_dyr["Silkesvarten"])
 
+# det betyr at Mini.mor og Silkesvarten er faktisk det samme!
+# her kommer informasjon fra Silkesvarten:
 print(mine_dyr["Mini"].mor.navn)
 print(mine_dyr["Mini"].mor.liv)
