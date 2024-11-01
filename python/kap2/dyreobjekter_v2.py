@@ -20,11 +20,12 @@ for dyr in mine_dyr.values():
 
 mine_dyr["Kaisa"].aldring(5)
 
-print("*******************************")
 
 for i in range(6):
   mine_dyr["Silkesvarten"].antall_liv()
 
+print("*******************************")
+print()
 mine_dyr["Silkesvarten"].avkom("Mini")
 print()
 mine_dyr["Silkesvarten"].avkom("Midi")
