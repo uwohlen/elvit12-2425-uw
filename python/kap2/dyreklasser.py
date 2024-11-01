@@ -18,7 +18,9 @@ class Dyr:
     self.rase = rase
     self.farge = farge
     self.hale = hale
-    self.alder = 0 
+    self.alder = 0
+    self.barn = []
+
 
   def dyr_info(self):
     """
@@ -37,8 +39,30 @@ class Dyr:
     self.alder += antall
     print(f"{self.navn} er nå {self.alder} år")
 
+  def avkom(self,barnenavn):
+    """
+    Metode for å legge til et barn i en liste
+    Parametre:
+      barnenavn(str): Navnet på barnet
+    Output:
+      Skriver ut listen med barn
+    """
+    self.barn.append(barnenavn)
+    # For å teste at ting virker, så er det kjekt å ta utskrifter
+    # Men i sluttversjonen bør vi ofte skille mellom 
+    # metoder som lagrer,
+    # metoder som returnerer, 
+    # og metoder som printer
+    for unge in self.barn:
+      print(unge)
 
-
+  def sett_mor(self,dyreobjekt):
+    """
+    Metode for å legge til foreldre - mor
+    Parametre:
+      dyreobjekt: objektvariabel
+    """
+    self.mor = dyreobjekt
 
 class Katt(Dyr):
   """
@@ -106,3 +130,5 @@ class Hund(Dyr):
       Skriver ut at hunden sier Voff
     """
     print(f'{self.navn} sier "Voff"')
+
+

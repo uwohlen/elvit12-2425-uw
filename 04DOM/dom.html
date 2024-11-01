@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang='no'>
+<head>
+    <meta charset='UTF-8'>
+    <title></title>
+    <style>
+        h1 {
+            color: red;
+        }
+        span {
+            color: blue;
+        }
+        table,td,th {
+            border: black 1px solid;
+            border-collapse: collapse;
+            cursor: pointer;
+            width: 100px;
+        }
+        tbody {
+            /*
+            background-color: aquamarine;  
+            */
+            color: blue;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test <span>av</span> HTML-kode</h1>
+    
+    <table>
+        <thead>
+            <tr><th>Nr 1</th><th>Nr 2</th></tr>
+        </thead>
+        <tbody id="idTabell">
+            <tr><td>a</td><td>b</td></tr>
+            <tr><td>c</td><td>d</td></tr>
+            <tr><td>e</td><td>f</td></tr>
+        </tbody>
+    </table>
+<script>
+    let tabellEl = document.getElementById("idTabell");
+
+    tabellEl.style.backgroundColor = "lightblue";
+    console.log(tabellEl.style);
+
+    tabellEl.addEventListener("click",skiftFunk);
+    
+    function skiftFunk(event) {
+        let rad = event.target.parentNode.rowIndex;
+        let kolonne = event.target.cellIndex;
+        console.log(rad,kolonne);
+    }
+</script>
+</body>
+</html>
