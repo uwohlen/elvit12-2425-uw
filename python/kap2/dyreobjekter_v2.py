@@ -12,6 +12,8 @@ mine_dyr = {
 print(mine_dyr["Silkesvarten"].hale)   # Halen får standardverdien
 mine_dyr["Silkesvarten"].antall_liv()  # Antall liv har verdi liv=2, og får +1 fra metoden
 
+# forskjellen fra lister: man må skrive .values() for å få tak i verdiene bak :
+# og .keys() for å få tak i verdiene foran : i ordlisten over
 for dyr in mine_dyr.values():
   dyr.dyr_info()
   dyr.aldring(3)

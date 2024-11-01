@@ -6,7 +6,6 @@ import dyreklasser as dk
 # legg merke til at jeg skriver liv=2, ikke bare 2, siden jeg hopper over hale:
 mine_dyr = [
   dk.Katt("Silkesvarten","Norsk skogkatt","Svart",liv=2),
-  dk.Katt("Mini","Katt med ukjent far","Svart"), 
   dk.Katt("Tigergutt","Norsk skogkatt","Stripete grå-svart",liv=1),
   dk.Hund("Kaisa","Labrador retriever","Svart"),
   dk.Hund("Rita","Schäferhund","Svart og brun"),
