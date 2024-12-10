@@ -16,13 +16,13 @@
 <body>
     <h1>The idiot game!</h1>
     <button id="knappID">Trykk på meg 10 ganger. Fort!</button>
-    <h2>Antall klikk: <span id="antallID"></span></h2>
+    <h2>Antall klikk: <span id="antallID">0</span></h2>
+    <div id="testID"></div>
     <script>
         let knappEl = document.getElementById("knappID");
         let antallEl = document.getElementById("antallID");
         let antall = 0;
-        antallEl.innerText = antall;
-    
+
         addEventListener("click",knappfunk);
     
         function knappfunk(event) {

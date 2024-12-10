@@ -11,9 +11,10 @@ class Dyr:
     alder=0 (int): Dyrets alder i antall år. Endres med metoden aldring()
 
   Klassevariabel
-    dyr_nr (int): Unikt identitetsnummer for hvert dyr
+    _dyr_nr (int): Unikt identitetsnummer for hvert dyr
+    mor (object): 
   """
-  dyr_nr = 0                    # verdien 0 vil ikke bli brukt
+  _dyr_nr = 0               # variabelnavn med _ først er et signal om at denne ikke skal endres
   
   def __init__(self,navn:str,rase:str,farge:str,hale:str="Lang"):
     """
@@ -25,42 +26,42 @@ class Dyr:
     self.hale = hale
     self.alder = 0
     self.barn = []
-    Dyr.dyr_nr += 1             # starter med å endre verdien, så alle blir unike
-    self.dyr_nr = Dyr.dyr_nr    # legger variabelen til alle nye dyreobjekter når de opprettes
+    Dyr._dyr_nr += 1
+    self._dyr_nr = Dyr._dyr_nr  # attributtnavn med _ først er et signal om at denne ikke skal endres
 
-  def __str__(self):            # slipper å skrive et metodenavn for standard utskrift
+  def __str__(self):
     """
     Metode for utskrift
     """
-    tekst = f"{self.dyr_nr}: {self.navn} er en {self.farge.lower()} {self.rase.lower()}"
-    if (self.barn != []):       # skrives bare ut hvis den har verdier
+    tekst = f"{self._dyr_nr}: {self.navn} er en {self.farge.lower()} {self.rase.lower()}"
+    if (self.barn != []):
       tekst += f", avkom: {self.barn}"
-    try:                        # skrives bare ut hvis den har verdier
+    try:
       tekst += f", mor: {self.mor.navn}"
     except:
       pass
-    try:                        # skrives bare ut hvis den har verdier
+    try:
       tekst += f", far: {self.far.navn}"
     except:
       pass
     return tekst
   
-  def __add__(self,dyr2):       # hva skjer om man skriver dyr3 = dyr1 + dyr2
+  def __add__(self,dyr2):
     """
     Lage avkom fra foreldredyrene
     """
-    navn = "Nytt dyr"           # dyret må få nytt navn, finnes ikke i dyr1 og dyr2
-    if self.rase == dyr2.rase:  # renraset eller blandingsrase?
+    navn = "Nytt dyr"
+    if self.rase == dyr2.rase:
       rase = self.rase
     else:
       rase = "Blanding av " + self.rase.lower() + " og " + dyr2.rase.lower()
-    if self.farge == dyr2.farge:  # samme farge eller blandingsfarge? 
+    if self.farge == dyr2.farge:
       farge = self.farge
     else:
       farge = self.farge + ", " + dyr2.farge.lower()
-    return Dyr(navn,rase,farge) # lag et nytt objekt med disse verdiene basert på dyr1 og dyr2
+    return Dyr(navn,rase,farge)
 
-  def aldring(self,antall:int=1):
+  def aldring(self,antall:int):
     """
     Metode for å øke dyrets alder med et gitt antall år
     Parametre:
@@ -89,7 +90,7 @@ class Dyr:
     """
     self.mor = dyreobjekt
 
-  def sett_far(self,dyreobjekt:object):
+  def sett_far(self,dyreobjekt):
       """
       Metode for å legge til foreldre - far
       Parametre:
@@ -118,7 +119,7 @@ class Katt(Dyr):
     super().__init__(navn,rase,farge,hale)
     self.liv = liv    
 
-  def __str__(self):        # bruker __str__() fra Dyr-klassen, med et tillegg for attributten liv
+  def __str__(self):
     """
     Metode for utskrift
     """

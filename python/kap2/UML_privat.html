@@ -1,0 +1,34 @@
+<html>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+      <div class="mermaid">
+    
+        classDiagram
+          class Dyr {
+            alder : int
+            barn : list
+            far
+            farge : str
+            hale : str
+            mor
+            navn : str
+            rase : str
+            aldring(antall: int)
+            avkom(barnenavn: str)
+            sett_far(dyreobjekt)
+            sett_mor(dyreobjekt)
+          }
+          class Hund {
+            snakk()
+          }
+          class Katt {
+            liv : int
+            antall_liv()
+            snakk()
+          }
+          Hund --|> Dyr
+          Katt --|> Dyr
+  
+       </div>
+  </body>
+</html>

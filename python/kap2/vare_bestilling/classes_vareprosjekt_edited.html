@@ -1,0 +1,48 @@
+<html>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+      <div class="mermaid">
+    
+        classDiagram
+          %%direction RL
+          note "UML-diagram for Kakebedrift og varebestilling"
+          class Ansatt {
+            -__ansatt_nr: int
+            +stilling : str
+            +__ str __()  str
+          }
+          class Bestilling {
+            -__bestilling_nr : int
+            +kunde : Kunde
+            +varer : list
+            +legg_til_kunde(kunde: Kunde)
+            +legg_til_vare(vare: Vare)
+            +__ str __()  str
+          }
+          class Kunde {
+            -__kunde_nr: int
+            +adresse : str
+            +postnr : str
+            +__ str __()  str
+          }
+          class Person {
+            +etternavn : str
+            +fornavn : str
+            +mobil : str
+            +__ str __()  str
+          }
+          class Vare {
+            -__vare_nr: int
+            +antall : int
+            +varenavn : str
+            +oppdater_antall(flere: int)
+            +__ str __()  str
+          }
+          Person <|-- Ansatt
+          Person <|-- Kunde
+          Bestilling "0..n" -- "1" Kunde
+          Bestilling "0..n" -- "1..n" Vare
+  
+       </div>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+<html>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+      <div class="mermaid">
+    
+        classDiagram
+          class Ansatt {
+            stilling
+          }
+          class Bestilling {
+            bestillingsnummer
+            kunde
+            varer : list
+            legg_til_kunde(kunde)
+            legg_til_vare(vare)
+          }
+          class Person {
+            etternavn
+            fornavn
+            mobil
+          }
+          class Vare {
+            antall
+            varenavn
+            varenummer
+          }
+          Ansatt --|> Person
+  
+       </div>
+  </body>
+</html>

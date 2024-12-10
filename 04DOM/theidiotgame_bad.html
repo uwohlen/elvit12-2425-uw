@@ -7,7 +7,7 @@
         body {
             user-select: none;
         }
-        #idKnapp {
+        #knappID {
             position: absolute;
             top: 150px;
         }
@@ -15,27 +15,27 @@
 </head>
 <body>
     <h1>The idiot game!</h1>
-    <button id="idKnapp">Trykk på meg 10 ganger. Fort!</button>
-    <h2>Antall klikk: <span id="idAntall">0</span></h2>
+    <button id="knappID">Trykk på meg 10 ganger. Fort!</button>
+    <h2>Antall klikk: <span id="antallID">0</span></h2>
     <script>
         
         addEventListener("click",knappfunk);
     
         function knappfunk(event) {
-            if (event.target.id === "idKnapp") {
+            if (event.target.id === "knappID") {
                 
-                document.getElementById("idAntall").innerHTML = Number(document.getElementById("idAntall").innerHTML)+1;
+                document.getElementById("antallID").innerText = Number(document.getElementById("antallID").innerText)+1;
 
-                if (Number(document.getElementById("idAntall").innerHTML) === 7) {
-                    document.getElementById("idKnapp").style.top = "200px";
+                if (Number(document.getElementById("antallID").innerText) === 7) {
+                    document.getElementById("knappID").style.top = "200px";
                 }
-                else if (Number(document.getElementById("idAntall").innerHTML) === 10) {
-                    document.getElementById("idAntall").innerHTML += " Gratulerer! Du er en god idiot! <a href='theidiotgame2.html'>Neste spill</a>"
+                else if (Number(document.getElementById("antallID").innerText) === 10) {
+                    document.getElementById("antallID").innerHTML += " Gratulerer! Du er en god idiot! <a href='theidiotgame2.html'>Neste spill</a>"
                     removeEventListener("click",knappfunk);
                 }
             }
             else {
-                document.getElementById("idAntall").innerHTML += " Du bomma! Loooser!!!"
+                document.getElementById("antallID").innerText += " Du bomma! Loooser!!!"
                 removeEventListener("click",knappfunk);
             }
         }

@@ -16,7 +16,7 @@ print(mine_dyr[0].hale)   # Halen får standardverdien
 mine_dyr[0].antall_liv()  # Antall liv har verdi liv=2, og får +1 fra metoden
 
 for dyr in mine_dyr:
-  dyr.dyr_info()
+  dyr.__str__()
   dyr.aldring(3)
   dyr.snakk()
   print(type(dyr))        # dyreklasser.Katt viser at klassen er definert i filen dyreklasser.py

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dataAttributt</title>
+  <style>
+    li {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <ul id="listeID">
+  </ul>
+  <h2 id="valgID">Verdi 0</h2>
+  <script>
+    let listeEl = document.getElementById("listeID");
+    let valgEl = document.getElementById("valgID");
+    let total = 0;
+
+    let verdier = [100,400,500,1000,50];
+    let navn = ["A","B","C","D","E"]
+
+    for (let i=0; i<verdier.length; i++) {
+      let liEl = document.createElement("li");
+      liEl.innerText = "Alternativ " + navn[i];
+      listeEl.appendChild(liEl);
+    }
+
+    listeEl.addEventListener("click",valgfunk);
+
+    function valgfunk(event) {
+      let lengde = event.target.innerText.length;
+      let bokstav = event.target.innerText.substr(lengde-1);
+      let indeks = navn.indexOf(bokstav);
+      total += verdier[indeks];
+      valgEl.innerText = "Pluss " + bokstav + " blir " + total;
+    }
+
+
+
+  </script>
+</body>
+</html>

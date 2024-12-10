@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dataAttributt</title>
+  <style>
+    li {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <ul id="listeID">
+    <li data-verdi="100" data-navn="A">Alternativ A</li>
+    <li data-verdi="400" data-navn="B">Alternativ B</li>
+    <li data-verdi="500" data-navn="C">Alternativ C</li>
+    <li data-verdi="1000" data-navn="D">Alternativ D</li>
+    <li data-verdi="50" data-navn="E">Alternativ E</li>
+  </ul>
+  <h2 id="valgID">Verdi 0</h2>
+  <script>
+    let listeEl = document.getElementById("listeID");
+    let valgEl = document.getElementById("valgID");
+    let total = 0;
+
+    listeEl.addEventListener("click",valgfunk);
+
+    function valgfunk(event) {
+      total += Number(event.target.dataset.verdi);
+      valgEl.innerText = "Pluss " + event.target.dataset.navn + " blir " + total;
+    }
+
+    let lister = document.querySelectorAll("#listeID > li");
+    console.log(lister)
+    for (let i=0; i<lister.length; i++) {
+      console.log(lister[i].dataset.navn)
+      console.log(lister[i].dataset.verdi)
+    }
+  </script>
+</body>
+</html>
