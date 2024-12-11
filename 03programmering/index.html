@@ -1,0 +1,47 @@
+ <!DOCTYPE html>
+ <html lang="no">
+    <head>
+        <title>Variabler</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <h1>Testing</h1>
+    </body>
+    <script>
+        let x = 1 // gamle programmer bruker var
+        let y = 5 // global variabel
+        var a = 0 // global variabel
+
+        if (x < 5) {
+            let w = 10 // lokal variabel
+            var z = 20 // global variabel
+        }
+
+        //Console log av variabelverdier brukes av programmerere for å sjekke at programmet kjører riktig
+        //console.log(w) // gir feilmelding
+        console.log("Verdi z:",z) // ingen feilmelding 
+
+        function test(tall1) {
+            let tall3 = 40 // lokal variabel
+            var tall4 = 50 // lokal variabel
+            if (tall1 < 5) {
+                tall3 = 100
+            }
+            return tall3
+        
+        }
+        y = test(x) // y får verdien til tall3, altså 100
+        //console.log(tall3) //feilmelding
+        //console.log(tall4) //feilmelding
+
+        console.log("Ny verdi y:", y)
+        
+        // Kan lettere finne fram i en lag Console-logg ved å lage ikoner og markeringer:
+        console.info("Informasjon her");
+        console.warn("Advarsel");
+        console.error("Feilmelding");
+        console.log("Hei");
+        
+        
+    </script>
+ </html>
