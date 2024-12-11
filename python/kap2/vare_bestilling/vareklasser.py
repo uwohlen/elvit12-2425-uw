@@ -1,4 +1,5 @@
 import personklasser as pk
+
 class Vare:
   __vare_nr = 0
   def __init__(self,varenavn:str,antall:int):
@@ -15,10 +16,11 @@ class Vare:
 
 class Bestilling:
   __bestilling_nr = 0
-  def __init__(self):
+  def __init__(self,fornavn,etternavn,mobil,adresse,postnr,varenavn,antall):
     Bestilling.__bestilling_nr += 1
     self.__bestilling_nr = Bestilling.__bestilling_nr
-    self.varer = []
+    self.varer = Vare(varenavn,antall)
+    self.kunde = pk.Kunde(fornavn,etternavn,mobil,adresse,postnr)
 
   def legg_til_vare(self,vare:Vare):
     if vare.antall > 0:

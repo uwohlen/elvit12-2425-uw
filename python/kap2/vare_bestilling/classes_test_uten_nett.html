@@ -1,0 +1,36 @@
+<html>
+  <body>
+    <script src="uml.js"></script>
+      <div class="mermaid">
+    
+        classDiagram
+          class Ansatt {
+            stilling : str
+          }
+          class Bestilling {
+            kunde
+            varer : list
+            legg_til_kunde(kunde: pk.Kunde)
+            legg_til_vare(vare: Vare)
+          }
+          class Kunde {
+            adresse : str
+            postnr : str
+          }
+          class Person {
+            etternavn : str
+            fornavn : str
+            mobil : str
+          }
+          class Vare {
+            antall : int
+            varenavn : str
+            oppdater_antall(flere: int)
+          }
+          Ansatt --|> Person
+          Kunde --|> Person
+          Kunde --o Bestilling : kunde
+  
+       </div>
+  </body>
+</html>
