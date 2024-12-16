@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8"> 
+    <title>Console (og arrays)</title>
+</head>
+<body>
+    <button id="idKnapp">Klikk her</button>
+<script>
+
+    let knappEl = document.getElementById("idKnapp");
+    let a = [
+            ["c",1],
+            ["a",2],
+            ["b",3]
+        ]
+    let b = a.concat();
+    let c = Array.from(a);
+
+    a.sort();
+    console.log(a);
+    console.log(b);
+    console.log(c);
+
+    let d = a.concat(b);
+    console.log(d);
+    let e = a+b;
+    console.log(e);
+
+    knappEl.addEventListener("click",whaat);
+
+    function whaat() {
+        console.log(a+b);
+        console.error(a);
+        console.warn(b);
+        console.info(a-b);
+    }
+    //whaat();
+</script>
+
+</body>
+</html>
