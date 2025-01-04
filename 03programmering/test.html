@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Tittel</h1>
+  <input id="innID" type="number">
+  <button>Trykk</button>
+  <script>
+    let innEl = document.getElementById("innID");
+    let knappEl = document.querySelector("button");
+
+    knappEl.addEventListener("click",testfunk);
+
+    function testfunk() {
+      console.log(Number(innEl.value)+4)
+    }
+
+
+
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang='no'>
+<head>
+    <meta charset='UTF-8'>
+    <title>Modulus etc</title>
+    <style>
+    </style>
+</head>
+<body>
+    <h1>Skriv inn tall, eller noe som ikke er tall</h1>
+    <h2>Sjekk Console (høyre-klikk & inspiser)</h2>
+    <!--
+        <input id="idInn" type="number">
+    -->
+    <input id="idInn" type="text">
+    <p><span id="idTilbake"></span></p>
+    <script>
+        let innEl = document.getElementById("idInn");
+        let tilbakeEl = document.getElementById("idTilbake")
+        innEl.focus();
+        innEl.addEventListener("keydown",innfunk);
+        
+        function innfunk (event){
+            if(event.keyCode === 13) {
+                
+                
+                //Test av hva som skjer med verdier når type = text eller type = number i html:
+
+                let verdi = Number(innEl.value);
+
+                console.log("Fra inntekstfelt: typeof(verdi)");
+                console.log(typeof(verdi));
+                console.log("Verdi:")
+                console.log(verdi);
+                console.log("isNan(verdi)");
+                console.log(isNaN(verdi));
+                console.log("Number.isInteger(verdi)")
+                console.log(Number.isInteger(verdi));
+                console.log("Parse");
+                console.log(parseFloat(innEl.value));
+                console.log(parseInt(innEl.value));
+
+            }
+        }
+
+        //Sjekk av typeof og modulus
+        
+        let tall  = 17;
+        console.log(typeof(tall));
+        
+        let talltxt  = "17";
+        console.log(typeof(talltxt));
+        
+        let sant = true;
+        console.log(typeof(sant));
+        
+        let liste = [1,2,3,"a"];
+        console.log(typeof(liste));
+
+        let tall1 = 13;
+        let tall2 = 3;
+        console.log(Math.floor(tall1/tall2));
+        console.log(tall1%tall2);
+
+        if (tall1 % 2 === 0) {
+            console.log("Tall nr 1 er partall");
+        }
+        else {
+            console.log("Tall nr 1 er oddetall");
+            console.log(tall1%2);
+        }
+
+    </script>
+</body>
+</html>
