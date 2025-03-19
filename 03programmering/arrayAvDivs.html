@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang='no'>
+<head>
+  <meta charset='UTF-8'>
+  <title></title>
+  <style>
+    .sirkel {
+      height: 50px;
+      width: 50px;
+      background-color: blanchedalmond;
+      float: left;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+
+<script>
+  let siden = document.querySelector("body");
+  for (let i=0; i<500; i++) {
+    siden.innerHTML += "<div class='sirkel'></div>";
+  }
+
+  let divver = document.querySelectorAll(".sirkel");
+  console.log(divver);
+
+  for (let i=0; i<divver.length; i++) {
+    divver[i].addEventListener("click",fargefunk);
+  }
+
+  function fargefunk(event) {
+    event.target.style.backgroundColor = "red";
+  }
+
+</script>
+</body>
+</html>

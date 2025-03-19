@@ -1,0 +1,13 @@
+/* Min standard CSS */
+
+/* TABELLER */
+table,td,th {
+  border: solid black 1px;
+  border-collapse: collapse;
+  padding: 5px;
+}
+
+/* HÅND-SYMBOL for ting som kan klikkes på */
+button {
+  cursor: pointer;
+}

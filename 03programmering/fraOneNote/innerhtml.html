@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="divvv">
+    <button id="knapp">Virker bare en gang</button>
+  </div>
+  <div>
+    <button id="knappEN">Virker om igjen</button>
+    <div id="divEN"></div>
+  </div>
+  <script>
+    let divEl = document.querySelector("#divvv");
+    let divEN = document.querySelector("#divEN");
+    let knappEl = document.querySelector("#knapp");
+    let knappEN = document.querySelector("#knappEN");
+
+    knappEl.addEventListener("click",funk)
+    knappEN.addEventListener("click",funkEN)
+
+    function funk() {
+      divEl.innerHTML += "<p>Hei</p>";
+    }
+
+    function funkEN() {
+      divEN.innerHTML += "<p>HEI</p>"
+    }
+  </script>
+</body>
+</html>

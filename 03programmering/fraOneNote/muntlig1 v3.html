@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    table, th, td {
+      border: solid 1px black;
+      padding: 5px;
+      border-collapse: collapse;
+    }
+  </style>
+</head>
+<body>
+  <div id="knapper"></div>
+  <br>
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>Navn</th>
+          <th>Alder (år)</th>
+        </tr>
+      </thead>
+      <tbody id="tabell">
+
+      </tbody>
+    </table>
+  </div>
+  
+</body>
+  <script>
+    let knappEl = document.querySelector("#knapper");
+    let tabellEl = document.querySelector("#tabell");
+
+    let navn = ["Anne","Berit","Cecilie","Dagny"];
+    let alder = [23,55,77,45];
+    let alle = [];
+
+    for (let i=0; i<navn.length; i++) {
+      knappEl.innerHTML += "<button>"+ navn[i] + "</button>";
+    }
+    
+    knappEl.addEventListener("click",visfunk);
+
+    function visfunk(event) {
+      let indeks = navn.indexOf(event.target.innerText);
+      console.log(indeks);
+      alle.push([navn[indeks],alder[indeks]]);
+      alle.sort()
+      let tekst = "";
+      for (let i=0; i<alle.length; i++) {
+        tekst += "<tr><td>" + alle[i][0] + "</td><td>" + alle[i][1] + "</td></tr>";
+      }
+      tabellEl.innerHTML = tekst;
+
+    } 
+  
+
+    
+  </script>
+</html>

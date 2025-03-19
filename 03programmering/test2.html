@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input>
+  <script>
+    desimaltall = 0.1 + 0.2;
+    console.log(desimaltall);
+
+    if (desimaltall === 0.3) {
+        console.log("Lik");
+    }
+    else {
+        console.log("Ulik");
+    }
+
+    avrundet = Math.round(desimaltall*10)/10;
+    console.log(avrundet);
+
+    if (avrundet === 0.3) {
+        console.log("Lik");
+    }
+    else {
+        console.log("Ulik");
+    }
+
+    console.log("Differanse")
+    if (Math.abs(desimaltall - 0.3) < 0.001) {
+        console.log("Lik");
+    }
+    else {
+        console.log("Ulik");
+    }
+
+    
+
+    
+    
+    
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang='no'>
+<head>
+    <meta charset='UTF-8'>
+    <title></title>
+    <style>
+    </style>
+</head>
+<body>
+    <h1>Sjekk console.log</h1>
+<script>
+    let tekst = "May the force be with you";
+
+
+    //Eksempel med while
+/*
+    let i = 0;
+
+    while (i < tekst.length) {
+        console.log(tekst[i]);
+        i++;
+    }
+*/
+    //Samme eksempel med for, lettere å lese:
+/*
+    for (let i = 0; i < tekst.length; i++) {
+        console.log(tekst[i]);
+    }
+*/
+    for (let x of tekst) {
+        console.log(x);
+    }
+
+/*
+    //Varianter når man ikke vet hvor mange runder
+
+    let terning = Math.floor(Math.random()*6) + 1;
+
+    while (terning != 1) {
+        console.log(terning);
+        terning = Math.floor(Math.random()*6) + 1;
+    }
+    console.log("Ferdig: ",terning);
+
+
+    //Samme eksempel med for, vanskeligere å lese:
+
+    for (let terning = Math.floor(Math.random()*6)+1; terning != 1; terning = Math.floor(Math.random()*6)+1) {
+        console.log(terning);
+    }
+    console.log("Ferdig: ",terning);
+
+
+    //Samme eksempel med do - while:
+    
+    //let terning2;
+    do {
+        var terning2 = Math.floor(Math.random()*6) + 1;
+        console.log(terning2);
+    } 
+    while (terning2 != 1)
+    console.log("Ferdig");
+*/
+</script>
+</body>
+</html>
