@@ -118,9 +118,11 @@ def graf(xliste,yliste,start,slutt):
   fig, ax = plt.subplots()
   ax.plot(xliste, yliste)
   ax.scatter(xliste, yliste)
-  plt.xlim(start,slutt)
+
+  # For verdiene på x-aksen:
+  plt.xlim(start,slutt) # Få med start og slutt-årstall selv om verdier mangler
   if len(xliste) < 10:
-    plt.xticks(xliste,minor=False)
+    plt.xticks(xliste,minor=False) # unngå desimaltall når det er få verdier
 
   # Lagre diagrammet som en bildebuffer
   buf = BytesIO()
@@ -184,12 +186,12 @@ while True:
   
   #### LAG KNAPPER FOR VALG ####
   # Hovedruta for nedtrekksmenyen (kolonne)
-  nedtrekk = pg.Rect(10,10,160,40) # objekt
+  nedtrekk = pg.Rect(10,10,160,40)
   # Hovedruta for nedtrekksmenyen (startår)
   startaar = pg.Rect(180,10,160,40)
   # Hovedruta for nedtrekksmenyen (sluttår)
   sluttaar = pg.Rect(350,10,160,40)
-  # Tegn graf knapp
+  # Knapp (tegn graf)
   knapp = pg.Rect(520,10,160,40) 
   
 
@@ -198,11 +200,9 @@ while True:
   # KLIKK + COLLIDEPOINT #
   ########################  
 
-  # Tegner graf basert på kolonne
+  # Tegner graf basert på kolonne og valgte årstall
   if klikk and knapp.collidepoint((x,y)):
-      valg_objekter = []
-      valg_startaar_objekter = []
-      if valgt in overskrifter:
+      if valgt in overskrifter and valgt_startaar != "" and valgt_sluttaar != "":
         indeks = overskrifter.index(valgt)
         x_verdier = []
         y_verdier = []
