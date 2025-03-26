@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    button {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div><button id="knappID">Trykk her</button></div>
+  <div id="tilbakeID"></div>
+  <script>
+    let knappEl = document.getElementById("knappID");
+    let tilbakeEl = document.getElementById("tilbakeID");
+
+    knappEl.addEventListener("click",skiftFunk);
+
+    let navn = ["Anne","Berit","Cecilie"];
+    let i = 0;
+
+    function skiftFunk() {
+      tilbakeEl.innerHTML += "<p>" + navn[i] + "</p>";
+      i ++
+      if (i === navn.length) {
+        knappEl.removeEventListener("click",skiftFunk);
+        knappEl.disabled = true;
+        knappEl.style.cursor = "default";
+      }
+    }
+    
+  </script>
+</body>
+</html>
