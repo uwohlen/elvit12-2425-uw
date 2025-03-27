@@ -272,7 +272,7 @@ while True:
       shift_y = 0
       for j in range(len(startaar_alternativer)): # åpne nedtrekksmenyen for startår
         valg_startaar_objekter.append(pg.Rect(180+50*shift_x,50+30*shift_y,50,30))
-        pg.draw.rect(vindu,"magenta2",valg_startaar_objekter[j])
+        pg.draw.rect(vindu,"magenta3",valg_startaar_objekter[j])
         startaar_tekst = font.render(str(startaar_alternativer[j]),True,"black")
         vindu.blit(startaar_tekst,(185+50*shift_x,55+30*shift_y))
         shift_y += 1
