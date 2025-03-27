@@ -5,6 +5,9 @@ Behandling av datasett-filen:
 -det står at CSV-filen er UTF-8-kodet, men å og ø i overskriftene til de to første kolonnene blir ikke kodet riktig. Jeg har valgt å hardkode overskriftene i programmet under slik at de inneholder å og ø på riktig måte. Dermed vil nye versjoner av data-filen fremdeles kunne leses uten manuelle endringer i datafilen.
 
 Tabellen blir fin hvis skriftstørrelsen ikke er for stor i forhold til terminalvinduet / konsollen.
+
+Oppgave 9a kommer i terminalen
+Oppgave 9b kommer i pygame-vinduet
 """
 
 ##################################
@@ -70,7 +73,7 @@ with open(filnavn,encoding="utf-8") as fil:
     if linje[1] != "" and linje[2] != "" and linje[3] != "": 
       linje.append(int(linje[1]) + int(linje[2]) - int(linje[3])) # regn ut netto folkevekst
     else:
-      linje.append(" ") # legg inn tom verdi om netto folkevekst ikke kan regnes ut
+      linje.append("") # legg inn tom verdi om netto folkevekst ikke kan regnes ut
     alt.append(linje)
 
 # Alternativene som skal stå i nedtrekksmenyene:
@@ -209,7 +212,7 @@ while True:
 
         for aar in range(valgt_startaar,(valgt_sluttaar+1)):
           aar_indeks = startaar_alternativer.index(aar)
-          if alt[aar_indeks][indeks] != " " and alt[aar_indeks][indeks] != "":
+          if alt[aar_indeks][indeks] != "":
             x_verdier.append(aar)
             y_verdier.append(int(alt[aar_indeks][indeks]))
 
