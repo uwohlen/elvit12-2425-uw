@@ -32,7 +32,7 @@ matplotlib.use("Agg")
 from pygame.locals import (K_q, K_x)
 
 # Egne KLASSER for knapper og nedtrekksmenyer 
-import pygame_graf_H24_klasser
+import pygame_graf_H24_klasser as pk
 
 ########################
 # KONSTANTER           #
@@ -116,7 +116,7 @@ def oppg9a():
 
   #### FERDIG OPPGAVE 9A ####
 
-oppg9a()
+#oppg9a()
 
 def graf(xliste,yliste,start,slutt):
 
@@ -193,7 +193,9 @@ while True:
   
   #### LAG KNAPPER FOR VALG ####
   # Hovedruta for nedtrekksmenyen (kolonne)
-  nedtrekk = pg.Rect(10,10,160,40)
+  #nedtrekk = pg.Rect(10,10,160,40)
+  # ---------------------- Ny kode ------------------------
+  nedtrekk = pk.Nedtrekk(vindu,10,10,160,40,"magenta","Velg kolonne",alternativer)
   # Hovedruta for nedtrekksmenyen (startår)
   startaar = pg.Rect(180,10,160,40)
   # Hovedruta for nedtrekksmenyen (sluttår)
@@ -225,26 +227,29 @@ while True:
 
 
   # Vis fram alternativene i nedtrekksmenyen
-  elif klikk and nedtrekk.collidepoint((x,y)): # klikket på nedtrekksmenyen
+  # ---------------------- Ny kode ------------------------
+  elif klikk and nedtrekk.obj.collidepoint((x,y)): # klikket på nedtrekksmenyen
     valgt = ""
-    valg_objekter = []
+    nedtrekk.alt_obj = []
     valgt_startaar = ""
     valg_startaar_objekter = []
     valgt_sluttaar = ""
     valg_sluttaar_objekter = []
-    for i in range(len(alternativer)): # åpne nedtrekksmenyen ved å tegne firkanter
-      valg_objekter.append(pg.Rect(10,50+40*i,160,40)) # settes under den forrige
-      pg.draw.rect(vindu,"magenta3",valg_objekter[i])
-      nedtrekk_bilde1 = font.render(alternativer[i],True,"black")
-      vindu.blit(nedtrekk_bilde1,(20,55+40*i))
+    # ---------------------- Ny kode ------------------------
+    for i in range(len(nedtrekk.alternativer)): # åpne nedtrekksmenyen ved å tegne firkanter
+      nedtrekk.alt_obj.append(pk.Knapp(vindu,10,50+40*i,160,40,"magenta3",nedtrekk.alternativer[i])) # settes under den forrige
+      nedtrekk.alt_obj[i].tegn()
+      kolonne_tekst = font.render(nedtrekk.alternativer[i],True,"black")
+      vindu.blit(kolonne_tekst,(20,55+40*i))
   else:
     # Sjekk om man klikket på et alternativ
-    for i in range(len(valg_objekter)):
-      if klikk and valg_objekter[i].collidepoint((x,y)):
-        valgt = alternativer[i]
+    # ---------------------- Ny kode ------------------------
+    for n_knapp in nedtrekk.alt_obj:
+      if klikk and n_knapp.obj.collidepoint((x,y)):
+        valgt = n_knapp.tekst
         klikk = False
     # Alternativene er brukt opp, eller man klikket utenfor
-    valg_objekter = []
+    nedtrekk.alt_obj = []
     # Sjekk om man klikket på et startaar
     for i in range(len(valg_startaar_objekter)):
       if klikk and valg_startaar_objekter[i].collidepoint((x,y)):
@@ -259,7 +264,8 @@ while True:
     valg_sluttaar_objekter = []
 
   # Oppdater nedtrekksmenyen basert på alternativ valgt
-  pg.draw.rect(vindu,"magenta",nedtrekk) 
+  # ---------------------- Ny kode ------------------------
+  nedtrekk.tegn() 
   if valgt == "":
     nedtrekk_bilde = font.render("Velg kolonne", True, "black")
     vindu.blit(nedtrekk_bilde,(20,15))
