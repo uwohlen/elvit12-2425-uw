@@ -65,9 +65,9 @@ MENY_FARGE = "magenta"
 NEDTREKK_FARGE = "magenta3"
 HOVER_FARGE = "green"
 
-##################################
-# DATASETT, TABELL og GRAF       #
-##################################
+###########################
+# DATASETT, TABELL        #
+###########################
 
 filnavn = "Datasett_fodselstall_komma.csv"
 alt = []
@@ -92,8 +92,8 @@ with open(filnavn,encoding="utf-8") as fil:
 # Alternativene som skal stå i nedtrekksmenyene:
   alternativer = overskrifter[1:] # kolonne
   startaar_alternativer = []
-  for i in range(1945,2025):
-    startaar_alternativer.append(i)
+  for i in range(len(alt)):
+    startaar_alternativer.append(alt[i][0])
   
 def oppg9a():
   print()
@@ -127,6 +127,11 @@ def oppg9a():
   #### FERDIG OPPGAVE 9A ####
 
 oppg9a()
+
+
+##########################
+# GRAF                   #
+##########################
 
 def graf(xliste,yliste,start,slutt,kolonne):
 
@@ -234,14 +239,14 @@ while True:
       sluttaar.vis = False
     kolonne.vis = not(kolonne.vis)
     klikk = False
-  elif klikk and startaar.obj.collidepoint(x,y) and kolonne.tekst != "Velg kolonne":
+  elif klikk and startaar.obj.collidepoint(x,y) and kolonne.tekst != titler[0]:
     if not(startaar.vis):
       startaar.tekst = titler[1]
       sluttaar.tekst = titler[2]
       sluttaar.vis = False
     startaar.vis = not(startaar.vis)
     klikk = False
-  elif klikk and sluttaar.obj.collidepoint(x,y) and startaar.tekst != "Velg startår":
+  elif klikk and sluttaar.obj.collidepoint(x,y) and startaar.tekst != titler[1]:
     if not(sluttaar.vis):
       sluttaar.tekst = titler[2]
     sluttaar.vis = not(sluttaar.vis)
@@ -288,7 +293,7 @@ while True:
   #### TEGN NEDTREKKSMENYER ####
   for objekt in nedtrekk:
     if objekt.obj.collidepoint(muspos): # hover
-      objekt.tegn(farge="green")
+      objekt.tegn(farge=HOVER_FARGE)
     else:
       objekt.tegn()
     objekt.tegn(bredde=2)
@@ -297,7 +302,7 @@ while True:
     if objekt.vis:
       for n in objekt.alt_obj:
         if n.obj.collidepoint(muspos): # hover
-          n.tegn(farge="green")
+          n.tegn(farge=HOVER_FARGE)
         else:
           n.tegn()
         n.tegn(bredde=1)
@@ -305,15 +310,15 @@ while True:
   
   #### TEGN GRAF ####
   if kolonne.tekst != titler[0] and startaar.tekst != titler[1] and sluttaar.tekst != titler[2]:
-    indeks = overskrifter.index(kolonne.tekst)
+    kol_indeks = overskrifter.index(kolonne.tekst)
     x_verdier = []
     y_verdier = []
 
     for aar in range(int(startaar.tekst),int(sluttaar.tekst)+1):
-      aar_indeks = startaar_alternativer.index(aar)
-      if alt[aar_indeks][indeks] != "":
+      aar_indeks = startaar_alternativer.index(str(aar))
+      if alt[aar_indeks][kol_indeks] != "":
         x_verdier.append(aar)
-        y_verdier.append(int(alt[aar_indeks][indeks]))
+        y_verdier.append(int(alt[aar_indeks][kol_indeks]))
 
     bilde_skalert = graf(x_verdier, y_verdier, int(startaar.tekst),int(sluttaar.tekst),kolonne.tekst)
     vindu.blit(bilde_skalert, (MENY_X + KNAPP_BREDDE, 3*KNAPP_HOYDE))
