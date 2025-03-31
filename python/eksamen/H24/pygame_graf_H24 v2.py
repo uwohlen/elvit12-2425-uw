@@ -24,6 +24,7 @@ import csv
 # For grafer inn i pygame
 import matplotlib
 import matplotlib.pyplot as plt
+from matplotlib.ticker import MaxNLocator
 from io import BytesIO
 # Sett Matplotlib til ikke-interaktiv modus med "Agg" som backend
 matplotlib.use("Agg")
@@ -32,28 +33,37 @@ matplotlib.use("Agg")
 from pygame.locals import (K_q, K_x)
 
 # Egne KLASSER for knapper og nedtrekksmenyer 
-import pygame_graf_H24_klasser as pk
+import pygame_graf_H24_klasser_v2 as pk
 
-########################
-# KONSTANTER           #
-########################
+######################################
+# KONSTANTER, VINDU og FONT          #
+######################################
 
 # Størrelse på vindu, alt må forholde seg til det
 VINDU_BREDDE = 1000
 VINDU_HOYDE  = 700
 
-
-
-########################
-# VINDU og FONT        #
-########################
-
 # Oppretter et vindu der vi skal "tegne" innholdet vårt
 vindu = pg.display.set_mode([VINDU_BREDDE, VINDU_HOYDE])
 
 # Angir hvilken skrifttype og tekststørrelse vi vil bruke på tekst
-font = pg.font.SysFont("Arial", 24)
+font_overskrift = pg.font.SysFont("Arial",24)
+font_knapp = pg.font.SysFont("Arial",20)
+font_nedtrekk = pg.font.SysFont("Arial",20)
 
+
+KNAPP_BREDDE = 160
+KNAPP_HOYDE = 40
+NEDTREKK_BREDDE = 160
+NEDTREKK_HOYDE = 40
+NEDTREKK_BREDDE_2D = 50
+NEDTREKK_HOYDE_2D = 30
+
+MENY_X = 50
+MENY_Y = 50
+MENY_FARGE = "magenta"
+NEDTREKK_FARGE = "magenta3"
+HOVER_FARGE = "green"
 
 ##################################
 # DATASETT, TABELL og GRAF       #
@@ -116,20 +126,22 @@ def oppg9a():
 
   #### FERDIG OPPGAVE 9A ####
 
-#oppg9a()
+oppg9a()
 
-def graf(xliste,yliste,start,slutt):
+def graf(xliste,yliste,start,slutt,kolonne):
 
+  tittel = kolonne + "   " + str(start) + " - " + str(slutt)
   # Lag en figur-variabel, og putt grafen inn i den
   fig, ax = plt.subplots()
   ax.plot(xliste, yliste)
   ax.scatter(xliste, yliste)
+  ax.set_xlabel("Årstall")
+  ax.set_ylabel("Antall personer")
+  ax.set_title(tittel)
 
   # For verdiene på x-aksen:
-  plt.xlim(start,slutt) # Få med start og slutt-årstall selv om verdier mangler
-  if len(xliste) < 10:
-    plt.xticks(xliste,minor=False) # unngå desimaltall når det er få verdier
-
+  ax.xaxis.set_major_locator(MaxNLocator(integer=True))
+  
   # Lagre diagrammet som en bildebuffer
   buf = BytesIO()
   plt.savefig(buf, format="png")
@@ -138,8 +150,29 @@ def graf(xliste,yliste,start,slutt):
   bilde_av_graf = pg.image.load(buf)
 
   # Skalerer bildet til å passe til vinduet.
-  bilde_skalert = pg.transform.scale(bilde_av_graf,(800,600))
-  return bilde_skalert
+  #bilde_skalert = pg.transform.scale(bilde_av_graf,(800,600))
+  return bilde_av_graf
+
+
+###########################
+# OBJEKTER                #
+###########################
+
+
+#### LAG KNAPPER FOR VALG ####
+titler = ["Velg kolonne","Velg startår","Velg sluttår"]
+kolonne = pk.Nedtrekk(vindu,MENY_X,MENY_Y,KNAPP_BREDDE,KNAPP_HOYDE,MENY_FARGE,titler[0],font_knapp,alternativer,NEDTREKK_FARGE,True)
+
+kolonne.lag_alt_obj(NEDTREKK_BREDDE,NEDTREKK_HOYDE,font_nedtrekk)
+
+
+startaar = pk.Nedtrekk(vindu,2*MENY_X+KNAPP_BREDDE,MENY_Y,KNAPP_BREDDE,KNAPP_HOYDE,MENY_FARGE,titler[1],font_knapp,startaar_alternativer,NEDTREKK_FARGE,False)
+
+
+sluttaar = pk.Nedtrekk(vindu,3*MENY_X+2*KNAPP_BREDDE,MENY_Y,KNAPP_BREDDE,KNAPP_HOYDE,MENY_FARGE,titler[2],font_knapp,startaar_alternativer,NEDTREKK_FARGE,False)
+
+
+nedtrekk = [kolonne,startaar,sluttaar]
 
 ###########################
 # WHILE                   #
@@ -148,14 +181,8 @@ def graf(xliste,yliste,start,slutt):
 # Gjenta helt til brukeren lukker vinduet
 
 # Globale variabler - status-sjekk
-klikk = False               # Har brukeren klikket med musepekeren?
-valg_objekter = []          # objekter for "kollisjon" av alternativene
-valgt = ""                  # Har brukeren valgt noe fra nedtrekksmenyen?
-valg_startaar_objekter = [] # objekter for "kollisjon" av alternativene
-valgt_startaar = ""         # Har brukeren valgt noe fra nedtrekksmenyen?
-valg_sluttaar_objekter = [] # objekter for "kollisjon" av alternativene
-valgt_sluttaar = ""         # Har brukeren valgt noe fra nedtrekksmenyen?
-  
+klikk = False   # Har brukeren klikket med musepekeren?
+
 while True:
 
   ###################
@@ -180,7 +207,9 @@ while True:
     pg.quit()
     sys.exit()
   
-  
+  # Museposisjon for hover-farge
+  muspos = pg.mouse.get_pos()
+
    
 
   ###############################
@@ -190,140 +219,107 @@ while True:
   #### BAKGRUNN ####
   vindu.fill("white")
 
-  
-  #### LAG KNAPPER FOR VALG ####
-  # Hovedruta for nedtrekksmenyen (kolonne)
-  #nedtrekk = pg.Rect(10,10,160,40)
-  # ---------------------- Ny kode ------------------------
-  nedtrekk = pk.Nedtrekk(vindu,10,10,160,40,"magenta","Velg kolonne",alternativer)
-  # Hovedruta for nedtrekksmenyen (startår)
-  startaar = pg.Rect(180,10,160,40)
-  # Hovedruta for nedtrekksmenyen (sluttår)
-  sluttaar = pg.Rect(350,10,160,40)
-  # Knapp (tegn graf)
-  knapp = pg.Rect(520,10,160,40) 
-  
+  #### OVERSKRIFT ####
+  pg.display.set_caption("Oppgave 9b")
+  overskrift = font_overskrift.render("Befolkningsutvikling i årene 1945 - 2024", True, "black")
+  vindu.blit(overskrift,(10,10))
 
-
-  ########################
-  # KLIKK + COLLIDEPOINT #
-  ########################  
-
-  # Tegner graf basert på kolonne og valgte årstall
-  if klikk and knapp.collidepoint((x,y)):
-      if valgt in overskrifter and valgt_startaar != "" and valgt_sluttaar != "":
-        indeks = overskrifter.index(valgt)
-        x_verdier = []
-        y_verdier = []
-
-        for aar in range(valgt_startaar,(valgt_sluttaar+1)):
-          aar_indeks = startaar_alternativer.index(aar)
-          if alt[aar_indeks][indeks] != "":
-            x_verdier.append(aar)
-            y_verdier.append(int(alt[aar_indeks][indeks]))
-
-        bilde_skalert = graf(x_verdier, y_verdier, valgt_startaar, valgt_sluttaar)
-        vindu.blit(bilde_skalert, (100, 50))
-
-
-  # Vis fram alternativene i nedtrekksmenyen
-  # ---------------------- Ny kode ------------------------
-  elif klikk and nedtrekk.obj.collidepoint((x,y)): # klikket på nedtrekksmenyen
-    valgt = ""
-    nedtrekk.alt_obj = []
-    valgt_startaar = ""
-    valg_startaar_objekter = []
-    valgt_sluttaar = ""
-    valg_sluttaar_objekter = []
-    # ---------------------- Ny kode ------------------------
-    for i in range(len(nedtrekk.alternativer)): # åpne nedtrekksmenyen ved å tegne firkanter
-      nedtrekk.alt_obj.append(pk.Knapp(vindu,10,50+40*i,160,40,"magenta3",nedtrekk.alternativer[i])) # settes under den forrige
-      nedtrekk.alt_obj[i].tegn()
-      kolonne_tekst = font.render(nedtrekk.alternativer[i],True,"black")
-      vindu.blit(kolonne_tekst,(20,55+40*i))
+  #### VELG KOLONNE ####
+  if klikk and kolonne.obj.collidepoint(x,y):
+    if not(kolonne.vis):
+      kolonne.tekst = titler[0]
+      startaar.tekst = titler[1]
+      sluttaar.tekst = titler[2]
+      startaar.vis = False
+      sluttaar.vis = False
+    kolonne.vis = not(kolonne.vis)
+    klikk = False
+  elif klikk and startaar.obj.collidepoint(x,y) and kolonne.tekst != "Velg kolonne":
+    if not(startaar.vis):
+      startaar.tekst = titler[1]
+      sluttaar.tekst = titler[2]
+      sluttaar.vis = False
+    startaar.vis = not(startaar.vis)
+    klikk = False
+  elif klikk and sluttaar.obj.collidepoint(x,y) and startaar.tekst != "Velg startår":
+    if not(sluttaar.vis):
+      sluttaar.tekst = titler[2]
+    sluttaar.vis = not(sluttaar.vis)
+    klikk = False
   else:
-    # Sjekk om man klikket på et alternativ
-    # ---------------------- Ny kode ------------------------
-    for n_knapp in nedtrekk.alt_obj:
-      if klikk and n_knapp.obj.collidepoint((x,y)):
-        valgt = n_knapp.tekst
+    for n in kolonne.alt_obj:
+      if klikk and n.obj.collidepoint(x,y) and kolonne.vis:
+        kolonne.tekst = n.tekst
+        indeks = overskrifter.index(kolonne.tekst)
+        startaar.alternativer = []
+        for i in range(len(alt)):
+          if alt[i][indeks] != "":
+            startaar.alternativer.append(alt[i][0])
+        startaar.alt_obj = []
+        startaar.lag_alt_obj(NEDTREKK_BREDDE_2D,NEDTREKK_HOYDE_2D,font_nedtrekk,20)
+        kolonne.vis = False
         klikk = False
-    # Alternativene er brukt opp, eller man klikket utenfor
-    nedtrekk.alt_obj = []
-    # Sjekk om man klikket på et startaar
-    for i in range(len(valg_startaar_objekter)):
-      if klikk and valg_startaar_objekter[i].collidepoint((x,y)):
-        valgt_startaar = startaar_alternativer[i]
+        startaar.tekst = titler[1]
+        startaar.vis = True
+        break
+    for aar in startaar.alt_obj:
+      if klikk and aar.obj.collidepoint(x,y) and startaar.vis:
+        startaar.tekst = aar.tekst
+        indeks = overskrifter.index(kolonne.tekst)
+        sluttaar.alternativer = []
+        for i in range(len(alt)):
+          if alt[i][indeks] != "" and int(alt[i][0]) > int(startaar.tekst):
+            sluttaar.alternativer.append(alt[i][0])
+        sluttaar.alt_obj = []
+        sluttaar.lag_alt_obj(NEDTREKK_BREDDE_2D,NEDTREKK_HOYDE_2D,font_nedtrekk,20)
+        startaar.vis = False
         klikk = False
-    valg_startaar_objekter = []
-    # Sjekk om man klikket på et sluttaar
-    for i in range(len(valg_sluttaar_objekter)):
-      if klikk and valg_sluttaar_objekter[i].collidepoint((x,y)):
-        valgt_sluttaar = sluttaar_alternativer[i]
+        sluttaar.tekst = titler[2]
+        sluttaar.vis = True
+        break
+    for aar2 in sluttaar.alt_obj:
+      if klikk and aar2.obj.collidepoint(x,y) and sluttaar.vis:
+        sluttaar.tekst = aar2.tekst
+        sluttaar.vis = False
         klikk = False
-    valg_sluttaar_objekter = []
+        break
+        
 
-  # Oppdater nedtrekksmenyen basert på alternativ valgt
-  # ---------------------- Ny kode ------------------------
-  nedtrekk.tegn() 
-  if valgt == "":
-    nedtrekk_bilde = font.render("Velg kolonne", True, "black")
-    vindu.blit(nedtrekk_bilde,(20,15))
-  else:
-    nedtrekk_bilde = font.render(valgt, True, "black")
-    vindu.blit(nedtrekk_bilde,(20,15))
-    #### VELG STARTÅR ####
-    # Tegn hovedruta for nedtrekksmenyen (startår)
-    pg.draw.rect(vindu,"magenta",startaar)
-      
-    # Tid for å velge startår
-    if valgt_startaar == "":  
-      startaar_tekst = font.render("Velg startår", True, "black")
-      vindu.blit(startaar_tekst,(190,15))
-
-      shift_x = 0
-      shift_y = 0
-      for j in range(len(startaar_alternativer)): # åpne nedtrekksmenyen for startår
-        valg_startaar_objekter.append(pg.Rect(180+50*shift_x,50+30*shift_y,50,30))
-        pg.draw.rect(vindu,"magenta3",valg_startaar_objekter[j])
-        startaar_tekst = font.render(str(startaar_alternativer[j]),True,"black")
-        vindu.blit(startaar_tekst,(185+50*shift_x,55+30*shift_y))
-        shift_y += 1
-        if shift_y%20 == 0:
-          shift_x += 1
-          shift_y = 0
+  #### TEGN NEDTREKKSMENYER ####
+  for objekt in nedtrekk:
+    if objekt.obj.collidepoint(muspos): # hover
+      objekt.tegn(farge="green")
     else:
-      startaar_tekst = font.render(str(valgt_startaar), True, "black")
-      vindu.blit(startaar_tekst,(190,15))
-      #### VELG SLUTTÅR ####
-      # Tegn hovedruta for nedtrekksmenyen (sluttår)
-      pg.draw.rect(vindu,"magenta",sluttaar)
-      if valgt_sluttaar == "":
-        sluttaar_tekst = font.render("Velg sluttår", True, "black")
-        vindu.blit(sluttaar_tekst,(360,15))
-        startaar_indeks = startaar_alternativer.index(valgt_startaar) +1
-        sluttaar_alternativer = startaar_alternativer[startaar_indeks:]
-        shift_x = 0
-        shift_y = 0
-        for k in range(len(sluttaar_alternativer)):
-          valg_sluttaar_objekter.append(pg.Rect(350+50*shift_x,50+30*shift_y,50,40))
-          pg.draw.rect(vindu,"magenta3",valg_sluttaar_objekter[k])
-          sluttaar_tekst = font.render(str(sluttaar_alternativer[k]),True,"black")
-          vindu.blit(sluttaar_tekst,(355+50*shift_x,55+30*shift_y))
-          shift_y += 1
-          if shift_y%20 == 0:
-            shift_x += 1
-            shift_y = 0
-      else:
-        sluttaar_tekst = font.render(str(valgt_sluttaar),True, "black")  
-        vindu.blit(sluttaar_tekst,(360,15)) 
-        #### TEGN GRAF ####
-        pg.draw.rect(vindu,"magenta",knapp)
-        bilde = font.render("Tegn graf", True, "black")
-        vindu.blit(bilde, (530, 15))
+      objekt.tegn()
+    objekt.tegn(bredde=2)
+    objekt.vis_tekst()
 
+    if objekt.vis:
+      for n in objekt.alt_obj:
+        if n.obj.collidepoint(muspos): # hover
+          n.tegn(farge="green")
+        else:
+          n.tegn()
+        n.tegn(bredde=1)
+        n.vis_tekst()
+  
+  #### TEGN GRAF ####
+  if kolonne.tekst != titler[0] and startaar.tekst != titler[1] and sluttaar.tekst != titler[2]:
+    indeks = overskrifter.index(kolonne.tekst)
+    x_verdier = []
+    y_verdier = []
+
+    for aar in range(int(startaar.tekst),int(sluttaar.tekst)+1):
+      aar_indeks = startaar_alternativer.index(aar)
+      if alt[aar_indeks][indeks] != "":
+        x_verdier.append(aar)
+        y_verdier.append(int(alt[aar_indeks][indeks]))
+
+    bilde_skalert = graf(x_verdier, y_verdier, int(startaar.tekst),int(sluttaar.tekst),kolonne.tekst)
+    vindu.blit(bilde_skalert, (MENY_X + KNAPP_BREDDE, 3*KNAPP_HOYDE))
 
   #####################
   # OPPDATER VINDU    #
   #####################
   pg.display.flip()
+
