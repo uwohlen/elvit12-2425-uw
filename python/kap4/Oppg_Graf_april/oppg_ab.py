@@ -14,9 +14,9 @@ with open(filnavn, encoding="utf-8-sig") as fil:
 
 overskrifter[0] = "ID"
 overskrifter[1] = "Kjønn"
-overskrifter[2] = overskrifter[2].capitalize()
-overskrifter[3] = "Rente"
-overskrifter.append("Etter ti år")
+overskrifter[2] = overskrifter[2].capitalize() + " (kr)"
+overskrifter[3] = "Rente (%)"
+overskrifter.append("Etter ti år (kr)")
 #print(overskrifter)
 for rad in innhold:
     rad[0] = int(rad[0])
@@ -32,11 +32,11 @@ print()
 
 # Lag overskrifter i tabellen
 for i in range(len(overskrifter)):
-    print(f"{overskrifter[i]:11}" + " | ", end="") # Bredeste overskrift er 15 bokstaver, +1 for luft
+    print(f"{overskrifter[i]:16}" + " | ", end="") # Bredeste overskrift er 15 bokstaver, +1 for luft
 print()
 
 # Strek mellom overskrifter og innhold
-for i in range(14*len(overskrifter)): # Kolonnebredden er 19 bokstaver inkludert |
+for i in range(19*len(overskrifter)): # Kolonnebredden er 19 bokstaver inkludert |
     print("-", end="")
 print()
 
@@ -45,14 +45,14 @@ print()
 for i in range(len(innhold)):
     for j in range(len(innhold[i])):
         if j == 1:
-            print(f"{innhold[i][j]:<11}" + " | ", end="")
+            print(f"{innhold[i][j]:<16}" + " | ", end="")
         elif j == 4:
-            print(f"{innhold[i][j]:>11.2f}" + " | ", end="")
+            print(f"{innhold[i][j]:>16.2f}" + " | ", end="")
         else:
-            print(f"{innhold[i][j]:>11}" + " | ", end="")
+            print(f"{innhold[i][j]:>16}" + " | ", end="")
     print()
 
 # Strek under tabellen
-for i in range(14*len(overskrifter)):
+for i in range(19*len(overskrifter)):
     print("-", end="")
 print()

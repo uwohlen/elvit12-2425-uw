@@ -152,7 +152,9 @@ valg_startaar_objekter = [] # objekter for "kollisjon" av alternativene
 valgt_startaar = ""         # Har brukeren valgt noe fra nedtrekksmenyen?
 valg_sluttaar_objekter = [] # objekter for "kollisjon" av alternativene
 valgt_sluttaar = ""         # Har brukeren valgt noe fra nedtrekksmenyen?
-  
+
+skrevet = ""
+
 while True:
 
   ###################
@@ -168,6 +170,9 @@ while True:
     elif event.type == pg.MOUSEBUTTONDOWN:
       x, y = pg.mouse.get_pos() # får tak i posisjonen
       klikk = True
+    elif event.type == pg.TEXTINPUT:
+      skrevet += pg.key.name()
+      print(skrevet)
 
   # Henter en liste med status for alle tastatur-taster
   trykkede_taster = pg.key.get_pressed()

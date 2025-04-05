@@ -25,9 +25,9 @@ with open(filnavn, encoding="utf-8-sig") as fil:
 
 overskrifter[0] = "ID"
 overskrifter[1] = "Kjønn"
-overskrifter[2] = overskrifter[2].capitalize()
-overskrifter[3] = "Rente"
-overskrifter.append("Etter ti år")
+overskrifter[2] = overskrifter[2].capitalize() + " (kr)"
+overskrifter[3] = "Rente (%)"
+overskrifter.append("Etter ti år (kr)")
 #print(overskrifter)
 for rad in innhold:
     rad[0] = int(rad[0])
