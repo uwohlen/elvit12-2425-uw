@@ -1,4 +1,6 @@
 """
+Lager en firkant man kan klikke på - for deretter å skrive tekst
+- mangler en blinkende cursor for brukervennlighet
 Lagd av Osloskolen-GPT, ki.osloskolen.no 
 """
 
