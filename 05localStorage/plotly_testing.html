@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <script src="https://cdn.plot.ly/plotly-3.0.1.min.js" charset="utf-8"></script>
+  <style>
+    .grafCL {
+      border: solid 1px black;
+      width: 80%;
+      max-width: 700px;
+      margin: 20px auto;
+      padding: 10px;
+    }
+    h2, h3 {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Grafer</h1>
+  <h2>Fornemme fruers fantastiske fallskjermhopp</h2>
+  <div id="kolonneID" class="grafCL"></div>
+  <div id="sektorID" class="grafCL"></div>
+  <h2>Temperatur (Fahrenheit)</h2>
+  <div id="funksjonID" class="grafCL"></div>
+  <h3>Timer etter midnatt</h3>
+
+  <script>
+    let navn = ["Anne","Berit","Cecilie","Dagny"];
+    let antall = [55,22,33,45];
+    
+    const data1 = [{
+      x:navn,
+      y:antall,
+      type:"bar",
+      orientation:"v",
+      marker: {color:"blue"}
+    }];
+
+    
+    Plotly.newPlot("kolonneID", data1);
+
+
+
+    const data2 = [{labels:navn, values:antall, type:"pie"}];
+    
+    Plotly.newPlot("sektorID", data2);
+
+
+
+
+    let xverdier = [];
+    let yverdier = [];
+
+    function f(x) {
+      return x*x - 2*x - 5;
+    }
+
+    for (let i=-5; i<10; i+=0.1) {
+      xverdier.push(i)
+      yverdier.push(f(i))
+    }
+
+    const data3 = [{x:xverdier, y:yverdier, mode:"lines"}];
+
+    Plotly.newPlot("funksjonID", data3);
+
+  </script>
+
+</body>
+</html>
