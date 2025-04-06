@@ -65,7 +65,7 @@ class Knapp(Firkant):
     self.font = font
 
   def __str__(self):
-    return f"Posisjon: ({self.x},{self.y})\nStørrelse: ({self.bredde},{self.hoyde})\nFarge: {self.farge}\nTekst: {self.tekst}"
+    return super().__str__() + f"\nTekst: {self.tekst}"
 
   def vis_tekst(self):
     # sett teksten venstrestilt på knappen, sentrert i høyden
@@ -106,7 +106,7 @@ class Nedtrekk(Knapp):
     self.vis = vis
   
   def __str__(self):
-    return f"Posisjon: ({self.x},{self.y})\nStørrelse: ({self.bredde},{self.hoyde})\nFarge: {self.farge}\nTekst: {self.tekst}\nAlternativer: {self.alternativer}\nFarge: {self.alt_farge}"
+    return super().__str__() + f"\nAlternativer: {self.alternativer}\nFarge: {self.alt_farge}"
 
   def lag_alt_obj(self,bredde:int,hoyde:int,font,skift:int=0):
     # lag liste med objekter, ett objekt for hvert alternativ

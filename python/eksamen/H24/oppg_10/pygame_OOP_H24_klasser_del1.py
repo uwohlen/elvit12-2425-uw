@@ -1,4 +1,5 @@
 import pygame as pg
+import random as rd
 
 class Firkant:
   """
@@ -48,25 +49,50 @@ class Firkant:
     return f"Posisjon: ({self.x},{self.y})\nStørrelse: ({self.bredde},{self.hoyde})\nFarge: {self.farge}"
 
 
+PERSON_BREDDE = 15
+PERSON_HOYDE = 15
+
 class Person(Firkant):
   """
   Personer er firkanter med varierende grafikk, arver fra klassen Firkant
 
     Nye egenskaper
-      helsetilstand: tilstand
-      smitte rundt person: naboer
+      helsetilstand: farge
+      antall dager som smittet/syk: dager
 
     Redigert metode:
       tegn: verdi av tilstand påvirker grafikken
       
   """
-  def __init__(self,vindu,x:int,y:int,bredde:int,hoyde:int,tilstand,naboer,farge="gray"):
+  def __init__(self,vindu,x:int,y:int,bredde:int=PERSON_BREDDE,hoyde:int=PERSON_HOYDE,farge="gray",dag=0):
     super().__init__(vindu,x,y,bredde,hoyde,farge)
-    self.tilstand = tilstand
-    self.naboer = naboer
+    self.dag = dag
 
   def __str__(self):
-    return f"Posisjon: ({self.x},{self.y})\nStørrelse: ({self.bredde},{self.hoyde})\nTilstand: {self.tilstand}\nNaboer: {self.naboer}"
+    return super().__str__() + f"\nDag: {self.dag}"
 
-  def tegn(self):
-    pass
+  def bli_smittet(self):
+    # Kjøres bare når frisk uten immunitet: farge == gray
+    self.farge = "pink"
+    self.dag = 1
+  
+  def sjekk_tilstand(self):
+    # Kjøres bare når smittet eller syk: farge = pink / red
+    if self.farge == "pink" or self.farge == "red":
+      self.dag += 1
+
+    if self.farge == "pink" and self.dag > 3:
+      self.farge = "red"
+      self.dag = 1
+      if rd.random() < 0.01:
+        self.farge = "black"
+    elif self.farge == "red" and self.dag in [2,3,4]:
+      if rd.random() < 0.01:
+        self.farge = "black"
+    elif self.farge == "red" and self.dag > 4:
+      self.farge = "darkgray"
+
+
+  
+
+
