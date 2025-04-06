@@ -97,8 +97,8 @@ vindu = pg.display.set_mode((VINDU_BREDDE,VINDU_HOYDE))
 font_overskrift = pg.font.SysFont("Arial",24)
 font_knapp = pg.font.SysFont("Arial",size=20)
 
-menn = pk.Knapp(vindu, MENY_X, MENY_Y, KNAPP_BREDDE, KNAPP_HOYDE, MENY_FARGE, "Menn", font_knapp)
-kvinner = pk.Knapp(vindu, 2*MENY_X+KNAPP_BREDDE, MENY_Y, KNAPP_BREDDE, KNAPP_HOYDE, MENY_FARGE, "Kvinner", font_knapp)
+menn = pk.Knapp(vindu, MENY_X, MENY_Y, KNAPP_BREDDE, KNAPP_HOYDE, MENY_FARGE, "Menn (m)", font_knapp)
+kvinner = pk.Knapp(vindu, 2*MENY_X+KNAPP_BREDDE, MENY_Y, KNAPP_BREDDE, KNAPP_HOYDE, MENY_FARGE, "Kvinner (k)", font_knapp)
 knapper = [menn,kvinner]
 
 klikk = False
@@ -130,7 +130,7 @@ while True:
   overskrift = font_overskrift.render("Opptelling av antall kontoer med under eller over 500 000 kr",True,"black")
   vindu.blit(overskrift,(10,10))
   
-  forklaring = font_knapp.render("Velg kjønn fra kontolista (m eller k):",True,"black")
+  forklaring = font_knapp.render("Velg kjønn fra kontolista (klikk eller skriv):",True,"black")
   vindu.blit(forklaring,(10,50))
 
   avslutt = font_knapp.render("Avslutt med q eller x",True,"black")
@@ -143,7 +143,7 @@ while True:
     knapp.vis_tekst()
     if klikk and knapp.obj.collidepoint(x,y):
       #print(knapp.tekst,y_akse[i])
-      bilde = graf(x_akse,y_akse[i],knapp.tekst)
+      bilde = graf(x_akse,y_akse[i],knapp.tekst[:-3])
       klikk = False
     i += 1
 
