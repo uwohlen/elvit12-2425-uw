@@ -4,6 +4,7 @@ import random as rd
 class Firkant:
   """
   Firkanter blir objekter og kan tegnes
+  Klasse lagd da jeg øvde på eksamen V24
 
     Egenskaper
       plassering: x,y i vindu
