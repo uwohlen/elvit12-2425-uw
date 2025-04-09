@@ -73,8 +73,9 @@ class Person(Firkant):
 
   def bli_smittet(self):
     # Kjøres bare når frisk uten immunitet: farge == gray
-    self.farge = "pink"
-    self.dag = 1
+    if self.farge == "gray":
+      self.farge = "pink"
+      self.dag = 1
   
   def sjekk_tilstand(self):
     # Kjøres bare når smittet eller syk: farge = pink / red
@@ -85,7 +86,7 @@ class Person(Firkant):
       self.farge = "red"
       self.dag = 1
       if rd.random() < 0.01:
-        self.farge = "black"
+        self.farge = "black" # kan dø allerede første dagen
     elif self.farge == "red" and self.dag in [2,3,4]:
       if rd.random() < 0.01:
         self.farge = "black"
