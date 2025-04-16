@@ -27,7 +27,7 @@ for i in range(len(utdanningsprogram)):
 antall = [3811, 4168, 8661, 2057, 1484, 5501, 313, 901, 1309, 2061]
 
 # Farger til søylene
-bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange','tab:gray', 'tab:pink', 'tab:purple', 'tab:cyan', 'tab:olive', 'tab:red']
+bar_colors = ["red", "green", "orange", "gray", "pink", "purple", "cyan", "olive", "brown", "yellow"]
 
 
 ax.bar(nr, antall, label=referanse, color=bar_colors)
@@ -39,7 +39,7 @@ ax.set_title('Søkertall fordelt på yrkesrettede utdanningsprogrammer i 2021')
 
 # Bedre plass med mindre font
 # plassering i hjørnene: velg hjørne med loc 1,2,3, ..., 10
-ax.legend(title='Yrke',loc=1, prop={'size': 7}) # Font 6
+ax.legend(title='Yrke',loc=1, prop={'size': 7}) # Font 7
 
 # Kan tvinge y-aksen til å bli lengre, dermed blir søylene kortere
 # og det blir bedre plass til legend

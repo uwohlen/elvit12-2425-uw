@@ -76,7 +76,12 @@ while fortsett:
   vindu.blit(bilde, (20, 20))
 
 
+  #### Tester polygon og fargevalg for 3D-effekt ####
 
+  pg.draw.rect(vindu,"dimgray",(100,100,100,100))
+  # må fjerne 1 pixel for "linjebredde"
+  pg.draw.polygon(vindu,"lightgray",((100,100),(200-1,100),(100,200-1)))
+  pg.draw.rect(vindu,"gray",(110,110,80,80))
 
   #### OPPDATER VINDU ####
   pg.display.flip()
