@@ -17,7 +17,7 @@ from io import BytesIO
 matplotlib.use("Agg")
 
 ################
-# Les fil      #
+# LES FIL      #
 ################
 
 filnavn = "bank.csv"
@@ -66,6 +66,10 @@ for rad in y_akse:
       maks = kol
 #print(maks)
 
+#######################
+# GRAF                #
+#######################
+
 def graf(xliste,yliste,kjonn):
   #print(xliste,yliste,kjonn)
   tittel = "Kontoer for " + kjonn
@@ -89,6 +93,8 @@ def graf(xliste,yliste,kjonn):
 # PYGAME                        #
 #################################
 
+#### KONSTANTER ####
+
 VINDU_BREDDE = 1200
 VINDU_HOYDE = 700
 KNAPP_BREDDE = 100
@@ -101,15 +107,23 @@ vindu = pg.display.set_mode((VINDU_BREDDE,VINDU_HOYDE))
 font_overskrift = pg.font.SysFont("Arial",24)
 font_knapp = pg.font.SysFont("Arial",size=20)
 
+#### OBJEKTER ####
+
 menn = pk.Knapp(vindu, MENY_X, MENY_Y, KNAPP_BREDDE, KNAPP_HOYDE, MENY_FARGE, "Menn (m)", font_knapp)
 kvinner = pk.Knapp(vindu, 2*MENY_X+KNAPP_BREDDE, MENY_Y, KNAPP_BREDDE, KNAPP_HOYDE, MENY_FARGE, "Kvinner (k)", font_knapp)
 knapper = [menn,kvinner]
+
+#### START-VERDIER ####
 
 klikk = False
 valg = ""
 bilde = ""
 
+#### WHILE-LØKKA ####
+
 while True:
+
+  #### BRUKER-INPUT ####
 
   for event in pg.event.get():
     if event.type == pg.QUIT:
@@ -128,6 +142,8 @@ while True:
   elif trykkede_taster[K_k]:
     bilde = graf(x_akse,y_akse[1],"Kvinner")
 
+  #### TEKST, FORKLARINGER #### 
+
   vindu.fill("lemonchiffon")
 
   pg.display.set_caption("Oppgave d")
@@ -140,6 +156,7 @@ while True:
   avslutt = font_knapp.render("Avslutt med q eller x",True,"black")
   vindu.blit(avslutt,(10,VINDU_HOYDE-40))
 
+  #### KNAPPER, LAG GRAF ####
   i = 0
   for knapp in knapper:
     knapp.tegn()
