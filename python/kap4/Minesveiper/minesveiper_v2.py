@@ -1,3 +1,7 @@
+##################################
+# IMPORT. START pygame           #
+##################################
+
 import pygame as pg
 import sys
 import math
@@ -5,6 +9,10 @@ pg.init()
 
 from pygame.locals import (K_q, K_x)
 import minesveiper_klasser_v2 as pk
+
+######################################
+# KONSTANTER, VINDU og FONT          #
+######################################
 
 # Spillebrettets størrelse og konstanter
 # 9x9 med 10 miner
@@ -29,7 +37,10 @@ tid = -1
 
 
 
-# Objektene
+###########################
+# OBJEKTER                #
+###########################
+
 spillebrett = pk.Rutenett(vindu,ANTALLX,ANTALLY,ANTALL_MINER)
 spillebrett.lag_nytt_rutenett(font_knapp,FARGER[0])
 spillebrett.lag_miner()
@@ -64,7 +75,9 @@ def vis_tekst():
 #vis_miner()
 #vis_tekst()
 
-# Spill-løkka
+###########################
+# WHILE                   #
+###########################
 
 def tell_denne(brett,xpos,ypos):
   """
@@ -75,19 +88,31 @@ def tell_denne(brett,xpos,ypos):
     brett.ruter[xpos][ypos].visning = True
     brett.vist += 1
 
-
+# Startverdier
 klikk = False
 rklikk = False
 flat = False
 fortsett = True
 
+
+# Spill-løkka
+
 while True:
+
+  ###################
+  # TID             #
+  ###################
+
   # Tiden går med 10 frames pr sekund, dvs. legger til 0.1 sekund hver runde.
   # Teller ikke tider over 999 sekunder
   # Tiden starter når man klikker på noe første gang
   if fortsett and tid >= 0 and tid <= 999:
     tid += 0.1
     tidsrute.tekst = str(round(tid,0))[:-2]
+
+  ###################
+  # BRUKER-INPUT    #
+  ###################
 
   # Hendelser
   for event in pg.event.get():
@@ -125,12 +150,16 @@ while True:
     pg.quit()
     sys.exit()
 
-  # Oppdateringer
+  #####################
+  # OPPDATERINGER     #
+  #####################
 
   vindu.fill("lightgray")
   pg.display.set_caption("Minesveiper")
 
-  # Lar effekten av å trykke på en tom rute spre seg utover
+  ################################################################
+  # LAR EFFEKTEN AV Å TRYKKE PÅ EN TOM RUTE SPRE SEG UTOVER      #
+  ################################################################
   for i in range(ANTALLY):
     for j in range(ANTALLX):
       # ruten vises, det er ikke en mine, den har ingen miner rundt seg, og den er ikke markert som "her er det en mine" eller ?
@@ -160,10 +189,13 @@ while True:
           if i < spillebrett.antall_y - 1 and j > 0:
             tell_denne(spillebrett,i+1,j-1)
           
-
-  # Sjekker hver rute for klikk
+  ##################################
+  # SJEKKER HVER RUTE FOR KLIKK    #
+  ##################################
   for i in range(ANTALLY):
     for j in range(ANTALLX):
+
+      #### STOPP ELLER VIS ####
       if klikk and fortsett and spillebrett.ruter[i][j].obj.collidepoint(x,y):
         # Traff mine - stopp spillet (markerte ruter reagerer ikke på klikk)
         if spillebrett.ruter[i][j].mine and spillebrett.ruter[i][j].status == "":
@@ -173,7 +205,7 @@ while True:
           tell_denne(spillebrett,i,j) 
         klikk = False
       
-      # marker ruter som "her er det en mine", eller "?"
+      #### MARKER RUTER SOM "HER ER DET EN MINE" ELLER "?" ####
       # høyreklikk på ruta, og den er ikke allerede vanlig klikket på
       elif rklikk and fortsett and spillebrett.ruter[i][j].obj.collidepoint(w,z) and spillebrett.ruter[i][j].visning == False:
         if spillebrett.ruter[i][j].status == "":
@@ -186,9 +218,9 @@ while True:
           spillebrett.ruter[i][j].status = ""
         rklikk = False
         
-
-
-      # Oppdater tegningen av ruter og innskriving av antall miner
+      ##############################################################
+      # OPPDATER TEGNINGEN AV RUTER OG VISNING AV ANTALL MINER     #
+      ##############################################################
       if spillebrett.ruter[i][j].farge == "lightgray":
         # 3D-effekt når man trykker knappen ned så er den flat, helt til man slipper knappen opp igjen
         if flat and fortsett and spillebrett.ruter[i][j].obj.collidepoint((p,q)):
@@ -215,8 +247,9 @@ while True:
       # Rutenett - kantstreker i kontrastfarge som viser rutene også når de er flate
       spillebrett.ruter[i][j].tegn(bredde=1,farge="gray")
   
-
-  # Restart-knappen (gul sirkel, skal egentlig være animert smilefjes)
+  #######################################################################
+  # RESTART-KNAPPEN (gul sirkel, skal egentlig være animert smilefjes)  #
+  #######################################################################
   if klikk and restart.obj.collidepoint((x,y)):
     # Fjern rutene og lag spillebrettet på nytt
     spillebrett.ruter = []
@@ -233,10 +266,16 @@ while True:
     rklikk = False
     flat = False
   
+  ###########################
+  # VANT                    #
+  ###########################
   # Hvis man har funnet alle ruter uten mine: stopp spillet
   if spillebrett.vist == spillebrett.antall_x*spillebrett.antall_y - spillebrett.antall_miner:
     fortsett = False
-      
+  
+  ###########################
+  # SLUTT                   #
+  ###########################
   # Visning av mine-plasseringene
   if fortsett == False:
     for i in range(ANTALLY):
@@ -259,8 +298,9 @@ while True:
           pg.draw.line(vindu,"red",(spillebrett.ruter[i][j].x,spillebrett.ruter[i][j].y),(spillebrett.ruter[i][j].x+spillebrett.ruter[i][j].bredde,spillebrett.ruter[i][j].y+spillebrett.ruter[i][j].hoyde),width=4)
           pg.draw.line(vindu,"red",(spillebrett.ruter[i][j].x,spillebrett.ruter[i][j].y+spillebrett.ruter[i][j].hoyde),(spillebrett.ruter[i][j].x+spillebrett.ruter[i][j].bredde,spillebrett.ruter[i][j].y),width=4)
   
-  # Nedtelling av miner som ikke er funnet, og tidtaking
-  
+  #########################################################
+  # MENY: ANTALL MINER SOM GJENSTÅR, TID I SEKUNDER       #
+  #########################################################
   # Meny-rute, 3D-effekt motsatt vei (innover, hvis knappene står utover)
   pg.draw.rect(vindu,"gray95",(5,5,VINDU_BREDDE-10,90))
   pg.draw.polygon(vindu,"gray50",((5,5),(VINDU_BREDDE-5,5),(VINDU_BREDDE-10,10),(10,90),(5,95)))
@@ -280,5 +320,8 @@ while True:
   pg.draw.line(vindu,"black",(VINDU_BREDDE/2-7,53),(VINDU_BREDDE/2-4,48))
   pg.draw.line(vindu,"black",(VINDU_BREDDE/2-7,53),(VINDU_BREDDE/2-10,48))
 
+  #####################
+  # OPPDATER VINDU    #
+  #####################
   pg.display.flip()
   klokke.tick(10) # 10 fps

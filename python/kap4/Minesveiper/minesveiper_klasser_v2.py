@@ -10,29 +10,30 @@ class Firkant:
       vindu (Surface):      spillets vindu
       x, y (int):           plassering i vindu
       bredde, høyde (int):  størrelse på firkanten
-      farge:                fargekode eller fargenavn
-      objekt:               obj (Rect)
+      farge (str):          fargekode eller fargenavn
+      obj (Rect):           objekt for interaksjon, f.eks. kollisjoner
 
     Metoder
-      tegn:                 tegner firkanten i vinduet 
-      
-      __str__:              for utskrift av sentrale egenskaper
+      tegn: None            tegner firkanten i vinduet 
+      tegn3D: None          tegner kvadrater i vinduet, med 2 ulike farger på kanten for 3D-effekt
+      __str__: str          for utskrift av sentrale egenskaper
+
   """
-  def __init__(self,vindu,x:int,y:int,bredde:int,hoyde:int,farge):
+  def __init__(self,vindu:pg.surface.Surface,x:int,y:int,bredde:int,hoyde:int,farge:str) -> None:
     self.vindu = vindu
     self.x = x
     self.y = y
     self.bredde = bredde
     self.hoyde = hoyde
     self.farge = farge
-    self.obj = pg.Rect(self.x, self.y, self.bredde, self.hoyde)
+    self.obj:pg.rect.Rect = pg.Rect(self.x, self.y, self.bredde, self.hoyde)
 
-  def tegn(self,bredde:int=0,farge="",radius:int=-1):
+  def tegn(self,bredde:int=0,farge:str="",radius:int=-1) -> None:
     """
     Tegner firkanten i vinduet
 
-      bredde (int):   angis om det er kantstrek, ellers blir det heldekkende farge
-      farge:          kan angi nye farger, fargekode eller fargenavn
+      bredde (int):   angis om det er kantstrek (default svart), ellers blir det heldekkende farge
+      farge (str):    kan angi nye farger, fargekode eller fargenavn
       radius (int):   kan angi runde hjørner
     """
     # tegn firkanten
@@ -52,14 +53,14 @@ class Firkant:
       pg.draw.rect(self.vindu, farge, self.obj, bredde, radius)
   
 
-  def tegn3D(self,nedre,ovre,hoved="",kant=4):
+  def tegn3D(self,nedre:str,ovre:str,hoved:str="",kant:int=4) -> None:
     """
     Tegn firkanten med en 3D-effekt, kun for kvadrater
     
-      nedre: farge nede til høyre
-      ovre:  farge øverst til venstre
-      hoved: hovedfargen på knappen
-      kant:  hvor stor prosentandel av knappen som er 3D-kant
+      nedre (str): farge nede til høyre
+      ovre (str):  farge øverst til venstre
+      hoved (str): hovedfargen på knappen
+      kant (int):  bredden på 3D-kanten
 
       NB! Inneholder manuell finjustering på pikselnivå, draw.rect og draw.polygon regner bredde ulikt
     """
@@ -70,7 +71,7 @@ class Firkant:
     pg.draw.rect(self.vindu,hoved,(self.x+kant,self.y+kant,self.bredde-2*kant,self.hoyde-2*kant)) # mindre firkant foran
 
 
-  def __str__(self):
+  def __str__(self) -> str:
     return f"Posisjon: ({self.x},{self.y})\nStørrelse: ({self.bredde},{self.hoyde})\nFarge: {self.farge}"
 
 
@@ -80,45 +81,49 @@ class Firkant:
 
 class Knapp(Firkant):
   """
-  Knapper er firkanter med tekst, arver fra klassen Firkant
+  Knapper er firkanter med tekst, 
+          arver fra klassen Firkant
   Klasse jeg lagde da jeg øvde på eksamen H24 oppgave 9
   Endret til å passe til Minesveiper
   Teksten har blitt til tall
 
     Nye egenskaper
       tekst(int):                 antall miner
-      font
-      mine (True/False):          om firkanten skjuler en mine
-      visning (True/False):       om firkanten har blitt trykket på
-      status ("" / "mine" / "?"): markering av rute for antatt mine ved høyreklikk (ustabil ved touchpad på laptop)
+      font (Font):                font brukt på knappen
+      mine (bool):                om firkanten skjuler en mine
+      visning (bool):             om firkanten har blitt trykket på
+      status ("" / "mine" / "?"): markering av rute for antatt mine ved høyreklikk (to fingre på touchpad på laptop)
 
     Nye metoder:
-      vis_tekst:            setter teksten på midten av knappen
+      vis_tekst: None             setter teksten på midten av knappen
 
   """
-  def __init__(self,vindu,x:int,y:int,bredde:int,hoyde:int,farge,font,tekst:int=0):
+  def __init__(self,vindu:pg.surface.Surface,x:int,y:int,bredde:int,hoyde:int,farge:str,font:pg.font.Font,tekst:int=0) -> None:
     super().__init__(vindu,x,y,bredde,hoyde,farge)
     self.tekst = tekst
     self.font = font
-    self.mine = False
-    self.visning = False
-    self.status = ""
+    self.mine:bool = False
+    self.visning:bool = False
+    self.status:str = ""
 
-  def __str__(self):
+  def __str__(self) -> str:
     return super().__str__() + f"\nTekst: {str(self.tekst)}\nMine: {str(self.mine)}\nVisning: {str(self.visning)}\nStatus: {self.status}"
 
-  def vis_tekst(self,farge="black",tekst=""):
+  def vis_tekst(self,farge:str="black",tekst:str="") -> None:
     """
     Setter teksten midt på knappen
 
-      farge: om teksten skal ha en annen farge enn svart
-      tekst: om man skal skrive noe annet enn knappens egen tekst
+      farge (str): om teksten skal ha en annen farge enn svart
+      tekst (str): om man skal skrive noe annet enn knappens egen tekst
+
     """
+    # Lag teksten
     if tekst == "":
       knapp_tekst = self.font.render(str(self.tekst),True, farge)
     else:
       knapp_tekst = self.font.render(str(tekst),True, farge)
-      
+    
+    # Finn luften rundt teksten
     tekst_hoyde = knapp_tekst.get_height()
     tekst_bredde = knapp_tekst.get_width()
     forskyvning_y = (self.hoyde - tekst_hoyde)/2
@@ -138,28 +143,28 @@ class Rutenett:
       vindu (Surface):          spillets vindu
       antall_x, antall_y (int): rutenettets bredde og høyde
       antall_miner (int):       antall miner som skal gjemmes i rutenettet
-      ruter (list(Knapp)):      2D-liste med ruter av klassen Knapp
+      ruter (list[Knapp]):      2D-liste med ruter av klassen Knapp
       vist (int):               antall ruter uten miner på rutenettet som er vist fram / klikket på
       
     Metoder:
-      lag_nytt_rutenett:        sett knapper inn i lista ruter, alle uten miner
-      lag_miner:                fordel minene utover rutenettet
-      tell_nabo_miner:          sjekk om naborutene har miner
+      lag_nytt_rutenett: None   sett knapper inn i lista ruter, alle uten miner
+      lag_miner: None           fordel minene utover rutenettet
+      tell_nabo_miner: None     sjekk om naborutene har miner
   """
-  def __init__(self,vindu,antall_x:int=9,antall_y:int=9,antall_miner=10):
+  def __init__(self,vindu:pg.surface.Surface,antall_x:int=9,antall_y:int=9,antall_miner:int=10) -> None:
     self.vindu = vindu
     self.antall_x = antall_x
     self.antall_y = antall_y
     self.antall_miner = antall_miner
-    self.ruter = []
-    self.vist = 0
+    self.ruter:list[Knapp] = []
+    self.vist:int = 0
 
-  def lag_nytt_rutenett(self,font,farge):
+  def lag_nytt_rutenett(self,font:pg.font.Font,farge:str) -> None:
     """
     Danner et 2D rutenett av ruter
 
-      font
-      farge: firkantens startfarge
+      font (Font): Font for tallene som viser hvor mange miner som er i naborutene
+      farge (str): firkantenes startfarge
     """
     # x-retningen skal bare ha ruter
     # y-retningen må dyttes ned i forhold til meny-høyden
@@ -171,7 +176,7 @@ class Rutenett:
       for j in range(self.antall_x): # kolonner
         self.ruter[i].append(Knapp(self.vindu,j*rute_side,origo_y + i*rute_side,rute_side,rute_side,farge,font))
 
-  def lag_miner(self):
+  def lag_miner(self) -> None:
     """
     Velger tilfeldige tall i forhold til rutenettets størrelse
     Sjekker at vi ikke velger samme rute om igjen
@@ -192,7 +197,7 @@ class Rutenett:
       self.ruter[rad][kol].mine = True
 
 
-  def tell_nabo_miner(self):
+  def tell_nabo_miner(self) -> None:
     """
     Går gjennom rutenettet og teller antall miner rundt hver rute
       Hopper over ruter som har mine, siden de ikke skal oppgi antall

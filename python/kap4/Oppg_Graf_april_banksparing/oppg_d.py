@@ -1,3 +1,7 @@
+##################################
+# IMPORT. START pygame           #
+##################################
+
 import pygame as pg
 import sys
 pg.init()

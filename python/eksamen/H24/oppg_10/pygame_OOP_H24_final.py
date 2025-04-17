@@ -35,10 +35,13 @@ klokke = pg.time.Clock()
 # OBJEKTER, STARTVERDIER  #
 ###########################
 
-
+# Person-objekt
 folka = pk.Populasjon(vindu,ANTALL_SIDE)
+
+# Rutenett med Person-objekter
 folka.skap_ny_befolkning()
 
+# Plassering av de 5 første smitta/syke personene
 startverdier = [
   (MIDTEN,MIDTEN),
   (MIDTEN-1,MIDTEN),
@@ -46,9 +49,11 @@ startverdier = [
   (MIDTEN,MIDTEN-1),
   (MIDTEN,MIDTEN+1)
 ]
+# Alle 5 blir rosa med dag 1, dvs smittet
 for plass in startverdier:
   folka.befolkning[plass[0]][plass[1]].nysmittet = True
   folka.smitten_tar_tak()
+# Den i midten blir rød, fremdeles med dag 1, dvs syk
 folka.befolkning[MIDTEN][MIDTEN].farge = "red"
 
 
@@ -83,6 +88,8 @@ def sjekk_alle():
 
 
 while True:
+
+  #### BRUKER-INPUT ####
   for event in pg.event.get():
     if event.type == pg.QUIT:
       pg.quit()
@@ -93,6 +100,7 @@ while True:
     pg.quit()
     sys.exit()
 
+  #### TEGN STATUS ####
   vindu.fill("white")
 
   for i in range(ANTALL_SIDE):
@@ -100,11 +108,13 @@ while True:
       folka.befolkning[i][j].tegn()
       folka.befolkning[i][j].tegn(bredde=1,farge="lightgray")
 
+  #### OPPDATER STATUS ####
 
   folka.smitt_naboer()
   folka.oppdater_tilstand()
   folka.smitten_tar_tak()  
 
+  #### OPPDATER VINDU ####
   pg.display.flip()
   klokke.tick(10)
 

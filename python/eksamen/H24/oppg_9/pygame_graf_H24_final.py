@@ -228,7 +228,11 @@ while True:
   overskrift = font_overskrift.render("Befolkningsutvikling i årene 1945 - 2024", True, "black")
   vindu.blit(overskrift,(10,10))
 
-  #### VELG KOLONNE ####
+  #######################
+  # VELG FRA MENYENE    #
+  #######################
+
+  #### VELG KOLONNE PÅ NYTT, FJERN ÅRSTALL ####
   if klikk and kolonne.obj.collidepoint(x,y):
     if not(kolonne.vis):
       kolonne.tekst = titler[0]
@@ -238,6 +242,8 @@ while True:
       sluttaar.vis = False
     kolonne.vis = not(kolonne.vis)
     klikk = False
+
+  #### VELG ÅRSTALL PÅ NYTT ####
   elif klikk and startaar.obj.collidepoint(x,y) and kolonne.tekst != titler[0]:
     if not(startaar.vis):
       startaar.tekst = titler[1]
@@ -250,46 +256,60 @@ while True:
       sluttaar.tekst = titler[2]
     sluttaar.vis = not(sluttaar.vis)
     klikk = False
+
+  #### VELG ALTERNATIVER ####
   else:
+    #### VELG KOLONNE, OG VIS FRAM STARTÅR ####
     for n in kolonne.alt_obj:
       if klikk and n.obj.collidepoint(x,y) and kolonne.vis:
         kolonne.tekst = n.tekst
         indeks = overskrifter.index(kolonne.tekst)
         startaar.alternativer = []
+        # Henter bare start-årstall som har verdier i den valgte kolonnen
         for i in range(len(alt)):
           if alt[i][indeks] != "":
             startaar.alternativer.append(alt[i][0])
         startaar.alt_obj = []
+        # Lager rutene til nedtrekksmenyen for startår på nytt
         startaar.lag_alt_obj(NEDTREKK_BREDDE_2D,NEDTREKK_HOYDE_2D,font_nedtrekk,20)
+        # Bytt visning
         kolonne.vis = False
         klikk = False
         startaar.tekst = titler[1]
         startaar.vis = True
         break
+    #### VELG STARTÅR, OG VIS FRAM SLUTTÅR ####
     for aar in startaar.alt_obj:
       if klikk and aar.obj.collidepoint(x,y) and startaar.vis:
         startaar.tekst = aar.tekst
         indeks = overskrifter.index(kolonne.tekst)
         sluttaar.alternativer = []
+        # Henter bare slutt-årstall som har verdier i den valgte kolonnen
+        # etter startåret
         for i in range(len(alt)):
           if alt[i][indeks] != "" and int(alt[i][0]) > int(startaar.tekst):
             sluttaar.alternativer.append(alt[i][0])
         sluttaar.alt_obj = []
+        # Lager rutene til nedtrekksmenyen for sluttår på nytt
         sluttaar.lag_alt_obj(NEDTREKK_BREDDE_2D,NEDTREKK_HOYDE_2D,font_nedtrekk,20)
+        # Bytt visning
         startaar.vis = False
         klikk = False
         sluttaar.tekst = titler[2]
         sluttaar.vis = True
         break
+    #### VELG SLUTTÅR ####
     for aar2 in sluttaar.alt_obj:
       if klikk and aar2.obj.collidepoint(x,y) and sluttaar.vis:
         sluttaar.tekst = aar2.tekst
+        # Bytt visning
         sluttaar.vis = False
         klikk = False
         break
         
 
   #### TEGN NEDTREKKSMENYER ####
+  # Tegn hovedfirkanten med svart kant, vis tekst
   for objekt in nedtrekk:
     if objekt.obj.collidepoint(muspos): # hover
       objekt.tegn(farge=HOVER_FARGE)
@@ -298,6 +318,7 @@ while True:
     objekt.tegn(bredde=2)
     objekt.vis_tekst()
 
+    # Tegn alle alternativene hvis aktuelt
     if objekt.vis:
       for n in objekt.alt_obj:
         if n.obj.collidepoint(muspos): # hover
@@ -308,17 +329,20 @@ while True:
         n.vis_tekst()
   
   #### TEGN GRAF ####
+  # Alle tre menyer har verdier
   if kolonne.tekst != titler[0] and startaar.tekst != titler[1] and sluttaar.tekst != titler[2]:
     kol_indeks = overskrifter.index(kolonne.tekst)
     x_verdier = []
     y_verdier = []
 
+    # Hent x-verdier (årstall) og y-verdier (kolonne) fra datasettet, der det er verdier
     for aar in range(int(startaar.tekst),int(sluttaar.tekst)+1):
       aar_indeks = startaar_alternativer.index(str(aar))
       if alt[aar_indeks][kol_indeks] != "":
         x_verdier.append(aar)
         y_verdier.append(int(alt[aar_indeks][kol_indeks]))
 
+    # Tegn grafen
     bilde_skalert = graf(x_verdier, y_verdier, int(startaar.tekst),int(sluttaar.tekst),kolonne.tekst)
     vindu.blit(bilde_skalert, (MENY_X + KNAPP_BREDDE, 3*KNAPP_HOYDE))
 
