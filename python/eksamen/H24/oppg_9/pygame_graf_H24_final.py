@@ -125,7 +125,7 @@ def oppg9a():
 
   #### FERDIG OPPGAVE 9A ####
 
-oppg9a()
+#oppg9a()
 
 
 ##########################
@@ -345,6 +345,13 @@ while True:
     # Tegn grafen
     bilde_skalert = graf(x_verdier, y_verdier, int(startaar.tekst),int(sluttaar.tekst),kolonne.tekst)
     vindu.blit(bilde_skalert, (MENY_X + KNAPP_BREDDE, 3*KNAPP_HOYDE))
+
+  # Musepeker
+  if kolonne.obj.collidepoint(muspos):
+    pg.mouse.set_cursor(pg.SYSTEM_CURSOR_HAND)
+  else:
+    pg.mouse.set_cursor(pg.SYSTEM_CURSOR_ARROW)
+    
 
   #####################
   # OPPDATER VINDU    #

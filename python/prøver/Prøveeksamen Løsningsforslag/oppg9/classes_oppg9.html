@@ -1,0 +1,35 @@
+<html>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+      <div class="mermaid">
+    
+        classDiagram
+          class Klasserom {
+            antall_x : int
+            antall_y : int
+            plass_side : int
+            plasser : list[Plass]
+            vindu : Surface
+            kompetansen_gror() None
+            lag_plassene() None
+            snitt()
+            timen_starter() None
+          }
+          class Plass {
+            elev : bool
+            farge : str
+            grad : bool
+            grit : int
+            lerer : bool
+            obj : Rect
+            side : int
+            vindu : Surface
+            x : int
+            y : int
+            tegn() None
+          }
+          Klasserom *-- Plass : Klasserom lager Plass 0..1 / *
+  
+       </div>
+  </body>
+</html>
