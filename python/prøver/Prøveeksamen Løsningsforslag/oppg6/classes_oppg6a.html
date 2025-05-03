@@ -9,16 +9,16 @@
           class Dag_info {
             -__ukedag : str
             -__mm : float
-            set_ukedag(dag: str) None
-            get_ukedag() str
-            set_mm(verdi: float) None
-            get_mm() float
+            +set_ukedag(dag: str) None
+            +get_ukedag() str
+            +set_mm(verdi: float) None
+            +get_mm() float
           }
           class Registrering {
             -__liste : list[Dag_info]
-            get_liste() list[Dag_info]
-            legg_til_en(mm: float) None
-            total() float
+            +get_liste() list[Dag_info]
+            +legg_til_en(mm: float) None
+            +total() float
           }
           Registrering *-- Dag_info : Registrering lager Dag_info<br>0..1/*
   

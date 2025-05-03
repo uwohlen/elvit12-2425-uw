@@ -128,7 +128,10 @@ class Klasserom:
         kol.grad += kol.minutt
         kol.minutt = 0
 
-  def snitt(self):
+  def snitt(self) -> float:
+    """ 
+    Gjennomsnittskarakter i klassen
+    """
     snitt = 0
     for rad in self.plasser:
       for kol in rad:
