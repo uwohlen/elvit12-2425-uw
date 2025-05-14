@@ -35,14 +35,14 @@ class Plass:
       pg.draw.rect(self.vindu, bordfarge, self.obj)
       pg.draw.rect(self.vindu, "black", self.obj,width=1)
       farge = karakter[math.floor(self.grad)]
-      pg.draw.circle(self.vindu, farge, (self.x+15,self.y+15),10)
-      pg.draw.circle(self.vindu, "black", (self.x+15,self.y+15),10, width=1)
+      pg.draw.circle(self.vindu, farge, self.obj.center,round(self.obj.width*0.33))
+      pg.draw.circle(self.vindu, "black", self.obj.center,round(self.obj.width*0.33), width=1)
     else:
       pg.draw.rect(self.vindu, "black", self.obj,width=1)
       if self.lerer:
-        pg.draw.circle(self.vindu,self.farge,(self.x+15,self.y+15),10)
-        pg.draw.circle(self.vindu, "black",(self.x+15,self.y+15),10,width=1)
-
+        pg.draw.circle(self.vindu,self.farge,self.obj.center,round(self.obj.width*0.33))
+        pg.draw.circle(self.vindu, "black",self.obj.center,round(self.obj.width*0.33),width=1)
+    
       
 
 class Klasserom:
