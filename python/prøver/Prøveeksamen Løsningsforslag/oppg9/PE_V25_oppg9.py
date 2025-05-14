@@ -80,8 +80,6 @@ while True:
     tekst = fonten.render("Gjennomsnitt: "+str(snitt),True,"black")
     vindu.blit(tekst,(30,107))
 
-    
-
   pg.display.flip()
   klokke.tick(10)
 
