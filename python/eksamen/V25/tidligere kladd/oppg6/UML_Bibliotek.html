@@ -1,0 +1,26 @@
+<html>
+  <body>
+    <script src="uml.js"></script>
+      <div class="mermaid">
+    
+        classDiagram
+          note "UML-diagram for Bibliotek"
+          class Bok {
+            +tittel : str
+            +forfatter : str
+            +utlånt: Låner
+            +lånUt(Låner)
+            +leverTilbake()
+            +visInfo() str
+          }
+          class Låner {
+            -lånerID : int
+            +lånteBøker : [Bok]
+            +lånBok(Bok)
+            +leverTilbakeBok()
+          }
+          Bok "0..n" -- "0..1" Låner : Bok kan lånes av en Låner, Låner kan låne flere bøker
+
+       </div>
+  </body>
+</html>
