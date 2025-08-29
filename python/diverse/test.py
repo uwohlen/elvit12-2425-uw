@@ -1,0 +1,1 @@
+print("kontakt opprettet")
